@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UvgaExplorer", "UvgaExplorer\UvgaExplorer.csproj", "{EBB6DC19-F56E-4B33-ABCC-04D304CD75DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibUvgaFile", "LibUvgaFile\LibUvgaFile.csproj", "{2549C651-C11F-42AB-B50C-8AEF17418272}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBB6DC19-F56E-4B33-ABCC-04D304CD75DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB6DC19-F56E-4B33-ABCC-04D304CD75DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB6DC19-F56E-4B33-ABCC-04D304CD75DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB6DC19-F56E-4B33-ABCC-04D304CD75DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2549C651-C11F-42AB-B50C-8AEF17418272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2549C651-C11F-42AB-B50C-8AEF17418272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2549C651-C11F-42AB-B50C-8AEF17418272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2549C651-C11F-42AB-B50C-8AEF17418272}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA81512B-2BC6-4CD0-A86B-35BF9422EF50}
+	EndGlobalSection
+EndGlobal
