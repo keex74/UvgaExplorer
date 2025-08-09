@@ -117,7 +117,8 @@ public class UvgaFile
     /// </summary>
     /// <param name="targetFilename">The target filename. Creates .uvgi and .uvga files with the given base filename.</param>
     /// <param name="makeBackup">If true, a backup of an already existing file is created.</param>
-    public void Save(string targetFilename, bool makeBackup)
+    /// <returns>The path to the new Uvga and Uvgi files.</returns>
+    public (string UvgaPath, string UvgiPath) Save(string targetFilename, bool makeBackup)
     {
         var x = System.IO.Path.GetFullPath(targetFilename);
         var targetDir = Path.GetDirectoryName(x);
@@ -217,6 +218,8 @@ public class UvgaFile
             {
             }
         }
+
+        return (sourceUvga, sourceUvgi);
     }
 
     private static void TestPathAccess(string path)

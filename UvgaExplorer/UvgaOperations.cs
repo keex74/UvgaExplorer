@@ -286,8 +286,8 @@ internal static class UvgaOperations
         {
             var target = new UvgaFile();
             target.Images.AddRange(file.Select(f => f.Source));
-            target.Save(filename, true);
-            file.SourcePath = filename;
+            var (uvgaPath, uvgiPath) = target.Save(filename, true);
+            file.SourcePath = uvgaPath;
             return;
         }
         catch (Exception ex)
