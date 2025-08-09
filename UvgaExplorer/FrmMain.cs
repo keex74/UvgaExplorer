@@ -23,7 +23,7 @@ internal partial class FrmMain
     public FrmMain()
     {
         this.InitializeComponent();
-        this.UpdateTitle();
+        this.CreateNewFile();
         this.uvgaListDisplay1.ImageDoubleClicked += this.UvgaListDisplay1_ImageDoubleClicked;
         this.uvgaListDisplay1.ActiveImageChanged += this.UvgaListDisplay1_ActiveImageChanged;
         this.uvgaListDisplay1.ImageImportRequested += this.UvgaListDisplay1_ImageImportRequested;
@@ -134,15 +134,22 @@ internal partial class FrmMain
 
     private void UpdateTitle()
     {
-        if (this.currentFile == null || string.IsNullOrEmpty(this.currentFile.SourcePath))
+        if (this.currentFile == null)
         {
-            this.Text = "AO GUI Graphics Browser";
+            this.Text = "AO GUI Graphics Browser - No file";
+            this.uvgaListDisplay1.Enabled = false;
+        }
+        else if (string.IsNullOrEmpty(this.currentFile.SourcePath))
+        {
+            this.Text = "AO GUI Graphics Browser - New file";
+            this.uvgaListDisplay1.Enabled = true;
         }
         else
         {
             var pathParts = this.currentFile.SourcePath.Split(Path.DirectorySeparatorChar);
             var listPath = string.Join(Path.DirectorySeparatorChar, pathParts[^3..]);
             this.Text = "AO GUI Graphics Browser - " + listPath;
+            this.uvgaListDisplay1.Enabled = true;
         }
     }
 
