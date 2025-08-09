@@ -57,6 +57,11 @@ internal partial class UvgaListDisplay
     public event EventHandler? SelectedImagesChanged;
 
     /// <summary>
+    /// Raised when the user wants to delete selected items.
+    /// </summary>
+    public event EventHandler? DeleteImagesRequested;
+
+    /// <summary>
     /// Raised when an image was double-clicked.
     /// </summary>
     public event EventHandler<ImageItemsEventArgs>? ImageDoubleClicked;
@@ -106,6 +111,46 @@ internal partial class UvgaListDisplay
     }
 
     /// <summary>
+    /// Copy the currently selected items to the clipboard.
+    /// </summary>
+    public void CopySelectedImagesToClipboard()
+    {
+        var selected = this.SelectedImages;
+        if (selected.Count == 0)
+        {
+            return;
+        }
+
+        var data = UvgaClipboardData.FromImages(selected);
+        Clipboard.SetData(UvgaDataClipboardFormat, data);
+    }
+
+    /// <summary>
+    /// Select all images.
+    /// </summary>
+    public void SelectAll()
+    {
+        this.LvImages.BeginUpdate();
+        foreach (ListViewItem i in this.LvImages.Items)
+        {
+            i.Selected = true;
+        }
+
+        this.LvImages.EndUpdate();
+    }
+
+    /// <summary>
+    /// Paste items from the clipboard.
+    /// </summary>
+    public void PasteItemsFromClipboard()
+    {
+        if (Clipboard.GetData(UvgaDataClipboardFormat) is UvgaClipboardData customDropData)
+        {
+            this.OnImageImportRequested(new FileDropEventArgs([], customDropData.ToContent()));
+        }
+    }
+
+    /// <summary>
     /// Raises the <see cref="ActiveImageChanged"/> event.
     /// </summary>
     /// <param name="e">The event arguments.</param>
@@ -139,6 +184,15 @@ internal partial class UvgaListDisplay
     protected virtual void OnImageImportRequested(FileDropEventArgs e)
     {
         this.ImageImportRequested?.Invoke(this, e);
+    }
+
+    /// <summary>
+    /// Raises the <see cref="DeleteImagesRequested"/> event.
+    /// </summary>
+    /// <param name="e">The event arguments.</param>
+    protected virtual void OnDeleteImagesRequested(EventArgs e)
+    {
+        this.DeleteImagesRequested?.Invoke(this, e);
     }
 
     private List<UvgaImageFile> GetSelectedImages()
@@ -275,31 +329,19 @@ internal partial class UvgaListDisplay
     {
         if (e.Control && e.KeyCode == Keys.A)
         {
-            this.LvImages.BeginUpdate();
-            foreach (ListViewItem i in this.LvImages.Items)
-            {
-                i.Selected = true;
-            }
-
-            this.LvImages.EndUpdate();
+            this.SelectAll();
         }
         else if (e.Control && e.KeyCode == Keys.C)
         {
-            var selected = this.SelectedImages;
-            if (selected.Count == 0)
-            {
-                return;
-            }
-
-            var data = UvgaClipboardData.FromImages(selected);
-            Clipboard.SetData(UvgaDataClipboardFormat, data);
+            this.CopySelectedImagesToClipboard();
         }
         else if (e.Control && e.KeyCode == Keys.V)
         {
-            if (Clipboard.GetData(UvgaDataClipboardFormat) is UvgaClipboardData customDropData)
-            {
-                this.OnImageImportRequested(new FileDropEventArgs([], customDropData.ToContent()));
-            }
+            this.PasteItemsFromClipboard();
+        }
+        else if (!e.Control && !e.Alt && !e.Shift && e.KeyCode == Keys.Delete)
+        {
+            this.OnDeleteImagesRequested(EventArgs.Empty);
         }
     }
 

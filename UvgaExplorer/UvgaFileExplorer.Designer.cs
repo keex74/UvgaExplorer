@@ -30,134 +30,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UvgaFileExplorer));
             this.bgwEditItem1 = new BgwEditItem();
-            this.toolStripSeparator2 = new ToolStripSeparator();
-            this.BtnAbout = new ToolStripButton();
-            this.toolStripSeparator1 = new ToolStripSeparator();
-            this.BtnImportImages = new ToolStripButton();
-            this.BtnExportSelected = new ToolStripButton();
-            this.BtnDeleteSelected = new ToolStripButton();
-            this.BtnListStyle = new ToolStripDropDownButton();
-            this.toolStripSeparator = new ToolStripSeparator();
-            this.BtnOpenUVGA = new ToolStripButton();
-            this.BtnNewUvga = new ToolStripButton();
-            this.toolStrip1 = new ToolStrip();
-            this.BtnSaveAs = new ToolStripButton();
             this.detailView1 = new DetailView();
             this.splitContainer1 = new SplitContainer();
             this.uvgaListDisplay1 = new UvgaListDisplay();
-            this.toolStripContainer1 = new ToolStripContainer();
-            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)this.splitContainer1).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.toolStripContainer1.ContentPanel.SuspendLayout();
-            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
-            this.toolStripContainer1.SuspendLayout();
             SuspendLayout();
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new Size(6, 25);
-            // 
-            // BtnAbout
-            // 
-            this.BtnAbout.Image = (Image)resources.GetObject("BtnAbout.Image");
-            this.BtnAbout.ImageTransparentColor = Color.Magenta;
-            this.BtnAbout.Name = "BtnAbout";
-            this.BtnAbout.Size = new Size(60, 22);
-            this.BtnAbout.Text = "About";
-            this.BtnAbout.Click += BtnAbout_Click;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new Size(6, 25);
-            // 
-            // BtnImportImages
-            // 
-            this.BtnImportImages.Image = (Image)resources.GetObject("BtnImportImages.Image");
-            this.BtnImportImages.ImageTransparentColor = Color.Magenta;
-            this.BtnImportImages.Name = "BtnImportImages";
-            this.BtnImportImages.Size = new Size(104, 22);
-            this.BtnImportImages.Text = "Import images";
-            this.BtnImportImages.Click += PasteToolStripButton_Click;
-            // 
-            // BtnExportSelected
-            // 
-            this.BtnExportSelected.Image = (Image)resources.GetObject("BtnExportSelected.Image");
-            this.BtnExportSelected.ImageTransparentColor = Color.Magenta;
-            this.BtnExportSelected.Name = "BtnExportSelected";
-            this.BtnExportSelected.Size = new Size(107, 22);
-            this.BtnExportSelected.Text = "Export selected";
-            this.BtnExportSelected.Click += CopyToolStripButton_Click;
-            // 
-            // BtnDeleteSelected
-            // 
-            this.BtnDeleteSelected.Image = (Image)resources.GetObject("BtnDeleteSelected.Image");
-            this.BtnDeleteSelected.ImageTransparentColor = Color.Magenta;
-            this.BtnDeleteSelected.Name = "BtnDeleteSelected";
-            this.BtnDeleteSelected.Size = new Size(106, 22);
-            this.BtnDeleteSelected.Text = "Delete selected";
-            this.BtnDeleteSelected.Click += BtnDeleteSelected_Click;
-            // 
-            // BtnListStyle
-            // 
-            this.BtnListStyle.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            this.BtnListStyle.Image = (Image)resources.GetObject("BtnListStyle.Image");
-            this.BtnListStyle.ImageTransparentColor = Color.Magenta;
-            this.BtnListStyle.Name = "BtnListStyle";
-            this.BtnListStyle.Size = new Size(66, 22);
-            this.BtnListStyle.Text = "List Style";
-            // 
-            // toolStripSeparator
-            // 
-            this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new Size(6, 25);
-            // 
-            // BtnOpenUVGA
-            // 
-            this.BtnOpenUVGA.Image = (Image)resources.GetObject("BtnOpenUVGA.Image");
-            this.BtnOpenUVGA.ImageTransparentColor = Color.Magenta;
-            this.BtnOpenUVGA.Name = "BtnOpenUVGA";
-            this.BtnOpenUVGA.Size = new Size(56, 22);
-            this.BtnOpenUVGA.Text = "&Open";
-            this.BtnOpenUVGA.Click += OpenToolStripButton_Click;
-            // 
-            // BtnNewUvga
-            // 
-            this.BtnNewUvga.Image = (Image)resources.GetObject("BtnNewUvga.Image");
-            this.BtnNewUvga.ImageTransparentColor = Color.Magenta;
-            this.BtnNewUvga.Name = "BtnNewUvga";
-            this.BtnNewUvga.Size = new Size(51, 22);
-            this.BtnNewUvga.Text = "&New";
-            this.BtnNewUvga.Click += NewToolStripButton_Click;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Dock = DockStyle.None;
-            this.toolStrip1.Items.AddRange(new ToolStripItem[] { this.BtnNewUvga, this.BtnOpenUVGA, this.BtnSaveAs, this.toolStripSeparator, this.BtnDeleteSelected, this.BtnExportSelected, this.BtnImportImages, this.toolStripSeparator1, this.BtnAbout, this.toolStripSeparator2, this.BtnListStyle });
-            this.toolStrip1.Location = new Point(3, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new Size(625, 25);
-            this.toolStrip1.TabIndex = 0;
-            // 
-            // BtnSaveAs
-            // 
-            this.BtnSaveAs.Image = (Image)resources.GetObject("BtnSaveAs.Image");
-            this.BtnSaveAs.ImageTransparentColor = Color.Magenta;
-            this.BtnSaveAs.Name = "BtnSaveAs";
-            this.BtnSaveAs.Size = new Size(67, 22);
-            this.BtnSaveAs.Text = "&Save As";
-            this.BtnSaveAs.Click += SaveToolStripButton_Click;
             // 
             // detailView1
             // 
             this.detailView1.Dock = DockStyle.Fill;
             this.detailView1.Location = new Point(0, 0);
             this.detailView1.Name = "detailView1";
-            this.detailView1.Size = new Size(179, 491);
+            this.detailView1.Size = new Size(179, 516);
             this.detailView1.TabIndex = 0;
             // 
             // splitContainer1
@@ -173,7 +60,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.detailView1);
-            this.splitContainer1.Size = new Size(628, 491);
+            this.splitContainer1.Size = new Size(628, 516);
             this.splitContainer1.SplitterDistance = 445;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -185,69 +72,28 @@
             this.uvgaListDisplay1.Location = new Point(0, 0);
             this.uvgaListDisplay1.Name = "uvgaListDisplay1";
             this.uvgaListDisplay1.Padding = new Padding(3);
-            this.uvgaListDisplay1.Size = new Size(445, 491);
+            this.uvgaListDisplay1.Size = new Size(445, 516);
             this.uvgaListDisplay1.TabIndex = 0;
-            // 
-            // toolStripContainer1
-            // 
-            this.toolStripContainer1.BottomToolStripPanelVisible = false;
-            // 
-            // toolStripContainer1.ContentPanel
-            // 
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new Size(628, 491);
-            this.toolStripContainer1.Dock = DockStyle.Fill;
-            this.toolStripContainer1.LeftToolStripPanelVisible = false;
-            this.toolStripContainer1.Location = new Point(0, 0);
-            this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.RightToolStripPanelVisible = false;
-            this.toolStripContainer1.Size = new Size(628, 516);
-            this.toolStripContainer1.TabIndex = 1;
-            this.toolStripContainer1.Text = "toolStripContainer1";
-            // 
-            // toolStripContainer1.TopToolStripPanel
-            // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
             // UvgaFileExplorer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(this.toolStripContainer1);
+            Controls.Add(this.splitContainer1);
             Name = "UvgaFileExplorer";
             Size = new Size(628, 516);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)this.splitContainer1).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
-            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
-            this.toolStripContainer1.ResumeLayout(false);
-            this.toolStripContainer1.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private BgwEditItem bgwEditItem1;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton BtnAbout;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton BtnImportImages;
-        private ToolStripButton BtnExportSelected;
-        private ToolStripButton BtnDeleteSelected;
-        private ToolStripDropDownButton BtnListStyle;
-        private ToolStripSeparator toolStripSeparator;
-        private ToolStripButton BtnOpenUVGA;
-        private ToolStripButton BtnNewUvga;
-        private ToolStrip toolStrip1;
-        private ToolStripButton BtnSaveAs;
         private DetailView detailView1;
         private SplitContainer splitContainer1;
         private UvgaListDisplay uvgaListDisplay1;
-        private ToolStripContainer toolStripContainer1;
     }
 }
