@@ -22,6 +22,7 @@ internal partial class FrmMain
     public FrmMain()
     {
         this.InitializeComponent();
+        this.currentListeViewStyle = (View)Program.UESettings.ListViewStyle;
         this.NewEditor();
         this.TcEditors.SelectedIndexChanged += this.TcEditors_SelectedIndexChanged;
         this.TcEditors.AllowDrop = true;
@@ -32,10 +33,13 @@ internal partial class FrmMain
             var btn = new ToolStripMenuItem(value.ToString().Replace("Icon", " Icon"))
             {
                 Tag = value,
+                Checked = this.currentListeViewStyle == value,
             };
             this.BtnListStyle.DropDownItems.Add(btn);
             btn.Click += this.BtnSetListView_Click;
         }
+
+        this.UpdateUI();
     }
 
     private CustomEditorTab? SelectedTab
@@ -60,10 +64,14 @@ internal partial class FrmMain
         }
 
         this.currentListeViewStyle = view;
+        Program.UESettings.ListViewStyle = (int)view;
+        Program.UESettings.Save();
         foreach (CustomEditorTab t in this.TcEditors.TabPages)
         {
             t.FileExplorer.SetListViewStyle(view);
         }
+
+        this.UpdateUI();
     }
 
     private void UpdateUI()
@@ -91,6 +99,20 @@ internal partial class FrmMain
         this.BtnTsCopy.Enabled = hasFile;
         this.BtnTsCut.Enabled = hasFile;
         this.BtnTsPaste.Enabled = hasFile;
+
+        this.BtnAutomaticBackups.Checked = Program.UESettings.MakeSaveBackups;
+        foreach (ToolStripMenuItem btn in this.BtnListStyle.DropDownItems)
+        {
+            var tag = btn.Tag as View?;
+            if (tag.HasValue && tag.Value == this.currentListeViewStyle)
+            {
+                btn.Checked = true;
+            }
+            else
+            {
+                btn.Checked = false;
+            }
+        }
     }
 
     private void NewEditor(UvgaCollection? newFile = null)
@@ -278,6 +300,13 @@ internal partial class FrmMain
                 break;
             }
         }
+    }
+
+    private void BtnAutomaticBackups_Click(object sender, EventArgs e)
+    {
+        Program.UESettings.MakeSaveBackups = !Program.UESettings.MakeSaveBackups;
+        Program.UESettings.Save();
+        this.BtnAutomaticBackups.Checked = Program.UESettings.MakeSaveBackups;
     }
 
     private class CustomEditorTab

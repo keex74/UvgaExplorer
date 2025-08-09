@@ -290,7 +290,7 @@ internal static class UvgaOperations
         {
             var target = new UvgaFile();
             target.Images.AddRange(file.Select(f => f.Source));
-            var (uvgaPath, uvgiPath) = target.Save(filename, true);
+            var (uvgaPath, uvgiPath) = target.Save(filename, Program.UESettings.MakeSaveBackups);
             file.SourcePath = uvgaPath;
             return;
         }

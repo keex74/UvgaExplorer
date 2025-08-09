@@ -12,6 +12,11 @@ namespace UvgaExplorer;
 internal static class Program
 {
     /// <summary>
+    /// Gets the program settings.
+    /// </summary>
+    public static ProgramSettings UESettings { get; } = new();
+
+    /// <summary>
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
@@ -21,6 +26,7 @@ internal static class Program
         // see https://aka.ms/applicationconfiguration.
         Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
         ApplicationConfiguration.Initialize();
+        UESettings.Restore();
         Application.Run(new FrmMain());
     }
 }

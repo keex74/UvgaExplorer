@@ -63,6 +63,7 @@ partial class FrmMain
         this.BtnTsNew = new ToolStripButton();
         this.BtnTsOpen = new ToolStripButton();
         this.BtnTsSave = new ToolStripButton();
+        this.BtnTsClose = new ToolStripButton();
         this.toolStripSeparator4 = new ToolStripSeparator();
         this.BtnTsDeleteSelected = new ToolStripButton();
         this.BtnTsCut = new ToolStripButton();
@@ -70,7 +71,7 @@ partial class FrmMain
         this.BtnTsPaste = new ToolStripButton();
         this.toolStripSeparator5 = new ToolStripSeparator();
         this.BtnTsAbout = new ToolStripButton();
-        this.BtnTsClose = new ToolStripButton();
+        this.BtnAutomaticBackups = new ToolStripMenuItem();
         this.menuStrip1.SuspendLayout();
         this.toolStripContainer1.ContentPanel.SuspendLayout();
         this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -254,14 +255,14 @@ partial class FrmMain
         // BtnListStyle
         // 
         this.BtnListStyle.Name = "BtnListStyle";
-        this.BtnListStyle.Size = new Size(120, 22);
+        this.BtnListStyle.Size = new Size(180, 22);
         this.BtnListStyle.Text = "List Style";
         // 
         // optionsToolStripMenuItem
         // 
-        this.optionsToolStripMenuItem.Enabled = false;
+        this.optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.BtnAutomaticBackups });
         this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-        this.optionsToolStripMenuItem.Size = new Size(120, 22);
+        this.optionsToolStripMenuItem.Size = new Size(180, 22);
         this.optionsToolStripMenuItem.Text = "&Options";
         // 
         // helpToolStripMenuItem
@@ -314,7 +315,7 @@ partial class FrmMain
         this.toolStrip1.Items.AddRange(new ToolStripItem[] { this.BtnTsNew, this.BtnTsOpen, this.BtnTsSave, this.BtnTsClose, this.toolStripSeparator4, this.BtnTsDeleteSelected, this.BtnTsCut, this.BtnTsCopy, this.BtnTsPaste, this.toolStripSeparator5, this.BtnTsAbout });
         this.toolStrip1.Location = new Point(3, 0);
         this.toolStrip1.Name = "toolStrip1";
-        this.toolStrip1.Size = new Size(262, 25);
+        this.toolStrip1.Size = new Size(231, 25);
         this.toolStrip1.TabIndex = 0;
         // 
         // BtnTsNew
@@ -346,6 +347,16 @@ partial class FrmMain
         this.BtnTsSave.Size = new Size(23, 22);
         this.BtnTsSave.Text = "&Save";
         this.BtnTsSave.Click += BtnSave_Click;
+        // 
+        // BtnTsClose
+        // 
+        this.BtnTsClose.DisplayStyle = ToolStripItemDisplayStyle.Image;
+        this.BtnTsClose.Image = Properties.Resources.Close16;
+        this.BtnTsClose.ImageTransparentColor = Color.Magenta;
+        this.BtnTsClose.Name = "BtnTsClose";
+        this.BtnTsClose.Size = new Size(23, 22);
+        this.BtnTsClose.Text = "Close File";
+        this.BtnTsClose.Click += BtnClose_Click;
         // 
         // toolStripSeparator4
         // 
@@ -407,15 +418,12 @@ partial class FrmMain
         this.BtnTsAbout.Text = "He&lp";
         this.BtnTsAbout.Click += BtnAbout_Click;
         // 
-        // BtnTsClose
+        // BtnAutomaticBackups
         // 
-        this.BtnTsClose.DisplayStyle = ToolStripItemDisplayStyle.Image;
-        this.BtnTsClose.Image = Properties.Resources.Close16;
-        this.BtnTsClose.ImageTransparentColor = Color.Magenta;
-        this.BtnTsClose.Name = "BtnTsClose";
-        this.BtnTsClose.Size = new Size(23, 22);
-        this.BtnTsClose.Text = "Close File";
-        this.BtnTsClose.Click += BtnClose_Click;
+        this.BtnAutomaticBackups.Name = "BtnAutomaticBackups";
+        this.BtnAutomaticBackups.Size = new Size(212, 22);
+        this.BtnAutomaticBackups.Text = "Create automatic backups";
+        this.BtnAutomaticBackups.Click += BtnAutomaticBackups_Click;
         // 
         // FrmMain
         // 
@@ -485,4 +493,5 @@ partial class FrmMain
     private ToolStripButton BtnTsAbout;
     private ToolStripButton BtnTsDeleteSelected;
     private ToolStripButton BtnTsClose;
+    private ToolStripMenuItem BtnAutomaticBackups;
 }
