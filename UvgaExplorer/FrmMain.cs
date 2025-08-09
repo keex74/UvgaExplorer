@@ -288,6 +288,28 @@ internal partial class FrmMain
         t.FileExplorer.DoSelectAll();
     }
 
+    private void BtnImportImages_Click(object sender, EventArgs e)
+    {
+        var t = this.SelectedTab;
+        if (t == null)
+        {
+            return;
+        }
+
+        t.FileExplorer.DoImportFiles();
+    }
+
+    private void BtnExportImages_Click(object sender, EventArgs e)
+    {
+        var t = this.SelectedTab;
+        if (t == null)
+        {
+            return;
+        }
+
+        t.FileExplorer.DoExportFiles();
+    }
+
     private void TcEditors_DragOver(object? sender, DragEventArgs e)
     {
         var ctrlCoord = this.TcEditors.PointToClient(new Point(e.X, e.Y));
