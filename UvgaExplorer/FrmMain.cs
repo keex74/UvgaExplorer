@@ -31,8 +31,10 @@ internal partial class FrmMain
         var viewItems = Enum.GetValues(typeof(View));
         foreach (View value in viewItems)
         {
-            var btn = new ToolStripMenuItem(value.ToString().Replace("Icon", " Icon"));
-            btn.Tag = value;
+            var btn = new ToolStripMenuItem(value.ToString().Replace("Icon", " Icon"))
+            {
+                Tag = value,
+            };
             this.BtnListStyle.DropDownItems.Add(btn);
             btn.Click += this.SetListViewStyle;
         }
@@ -75,7 +77,19 @@ internal partial class FrmMain
             return;
         }
 
-        UvgaOperations.ImportImages(this, this.currentFile, e.FileNames);
+        if (e.FileNames.Count > 0)
+        {
+            UvgaOperations.ImportImages(this, this.currentFile, e.FileNames);
+        }
+        else if (e.Images.Count > 0)
+        {
+            foreach (var item in e.Images)
+            {
+                var newitem = new UvgaImageFile(item);
+                UvgaOperations.ReplaceImage(this.currentFile, newitem);
+            }
+        }
+
         this.ShowUvgaFile(this.currentFile);
     }
 

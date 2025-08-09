@@ -6,6 +6,8 @@
 
 namespace UvgaExplorer;
 
+using LibUvgaFile;
+
 /// <summary>
 /// Defines arguments for image based list events.
 /// </summary>
@@ -13,11 +15,17 @@ namespace UvgaExplorer;
 /// Initializes a new instance of the <see cref="ImageItemsEventArgs"/> class.
 /// </remarks>
 /// <param name="fileNames">The filenames related to the event.</param>
-internal class FileDropEventArgs(IReadOnlyList<string> fileNames)
+/// <param name="images">Any direct items that were part of the event.</param>
+internal class FileDropEventArgs(IReadOnlyList<string> fileNames, IReadOnlyList<UvgaImageContent> images)
         : EventArgs
 {
     /// <summary>
-    /// Gets the images related to the event.
+    /// Gets the filenames that were part of the drop related to the event.
     /// </summary>
     public IReadOnlyList<string> FileNames { get; } = fileNames;
+
+    /// <summary>
+    /// Gets the images that were part of the drop.
+    /// </summary>
+    public IReadOnlyList<UvgaImageContent> Images { get; } = images;
 }

@@ -7,6 +7,7 @@
 namespace UvgaExplorer;
 
 using LibUvgaFile;
+using UvgaExplorer.ClipboardData;
 
 /// <summary>
 /// A control that display a list of UVGA images.
@@ -14,6 +15,11 @@ using LibUvgaFile;
 internal partial class UvgaListDisplay
     : UserControl
 {
+    /// <summary>
+    /// Defines the name of the custom clipboard / drag drop format.
+    /// </summary>
+    private const string UvgaDataClipboardFormat = "UvgaExplorer-aa06feab-9202-4e32-8b91-c66f5531cbca";
+
     private readonly List<UvgaImageFile> selectedOnMouseDown = [];
     private UvgaCollection currentimages;
     private bool mouseDownOnItem = false;
@@ -277,18 +283,40 @@ internal partial class UvgaListDisplay
 
             this.LvImages.EndUpdate();
         }
+        else if (e.Control && e.KeyCode == Keys.C)
+        {
+            var selected = this.SelectedImages;
+            if (selected.Count == 0)
+            {
+                return;
+            }
+
+            var data = UvgaClipboardData.FromImages(selected);
+            Clipboard.SetData(UvgaDataClipboardFormat, data);
+        }
+        else if (e.Control && e.KeyCode == Keys.V)
+        {
+            if (Clipboard.GetData(UvgaDataClipboardFormat) is UvgaClipboardData customDropData)
+            {
+                this.OnImageImportRequested(new FileDropEventArgs([], customDropData.ToContent()));
+            }
+        }
     }
 
     private void LvImages_DragDrop(object? sender, DragEventArgs e)
     {
-        if (e.Data == null || !e.Data.GetDataPresent(DataFormats.FileDrop) || (e.AllowedEffect & DragDropEffects.Copy) == 0)
+        if (e.Data == null)
         {
             return;
         }
 
-        if (e.Data.GetData(DataFormats.FileDrop) is string[] dropdata && dropdata.Length > 0)
+        if (e.Data.GetData(UvgaDataClipboardFormat) is UvgaClipboardData customDropData && customDropData.Images.Count > 0)
         {
-            this.OnImageImportRequested(new FileDropEventArgs(dropdata));
+            this.OnImageImportRequested(new FileDropEventArgs([], customDropData.ToContent()));
+        }
+        else if (e.Data.GetData(DataFormats.FileDrop) is string[] dropdata && dropdata.Length > 0)
+        {
+            this.OnImageImportRequested(new FileDropEventArgs(dropdata, []));
         }
     }
 
@@ -299,7 +327,11 @@ internal partial class UvgaListDisplay
             return;
         }
 
-        if (e.Data.GetDataPresent(DataFormats.FileDrop) && (e.AllowedEffect & DragDropEffects.Copy) > 0)
+        if (e.Data.GetDataPresent(UvgaDataClipboardFormat))
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+        else if (e.Data.GetDataPresent(DataFormats.FileDrop) && (e.AllowedEffect & DragDropEffects.Copy) > 0)
         {
             e.Effect = DragDropEffects.Copy;
         }
@@ -365,6 +397,9 @@ internal partial class UvgaListDisplay
 
                 // Perform the drag & drop operation
                 var data = new DataObject(DataFormats.FileDrop, createdFiles.ToArray());
+
+                var directData = UvgaClipboardData.FromImages(this.selectedOnMouseDown);
+                data.SetData(UvgaDataClipboardFormat, directData);
                 var eff = this.LvImages.DoDragDrop(data, DragDropEffects.Copy | DragDropEffects.Move);
                 this.selectedOnMouseDown.Clear();
                 this.mouseDownOnItem = false;
@@ -402,7 +437,7 @@ internal partial class UvgaListDisplay
             this.SubItems.Add(img.Image.Width.ToString());
             this.SubItems.Add(img.Image.Height.ToString());
             var pxFormat = img.Image.PixelFormat.ToString();
-            this.SubItems.Add(pxFormat.StartsWith("Format") ? pxFormat.Substring(6) : pxFormat);
+            this.SubItems.Add(pxFormat.StartsWith("Format") ? pxFormat[6..] : pxFormat);
         }
 
         public UvgaImageFile SourceItem { get; }
