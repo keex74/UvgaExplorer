@@ -27,7 +27,6 @@ internal partial class UvgaListDisplay
         var newfile = new UvgaFile();
         this.currentimages = new UvgaCollection(newfile);
         this.LvImages.AllowDrop = true;
-        this.LvImages.MouseDoubleClick += this.LvImages_MouseDoubleClick;
         this.LvImages.KeyDown += this.LvImages_KeyDown;
         this.LvImages.DragEnter += this.LvImages_DragEnter;
         this.LvImages.DragDrop += this.LvImages_DragDrop;
@@ -235,16 +234,6 @@ internal partial class UvgaListDisplay
         this.OnSelectedImagesChanged(EventArgs.Empty);
     }
 
-    private void LvImages_MouseDoubleClick(object? sender, MouseEventArgs e)
-    {
-        var ht = this.LvImages.HitTest(e.Location);
-        if (ht.Item is DisplayWrapper dw)
-        {
-            var item = dw.SourceItem;
-            this.OnImageDoubleClicked(new ImageItemsEventArgs([item]));
-        }
-    }
-
     private void LvImages_KeyDown(object? sender, KeyEventArgs e)
     {
         if (e.Control && e.KeyCode == Keys.A)
@@ -291,24 +280,33 @@ internal partial class UvgaListDisplay
         var ht = this.LvImages.HitTest(e.Location);
         if (ht.Item is DisplayWrapper dw)
         {
-            var selected = this.SelectedImages;
-            var toDrop = new List<UvgaImageFile>();
-            if (selected != null && selected.Count > 0)
+            if (e.Clicks == 1)
             {
-                toDrop.AddRange(selected);
-            }
+                var selected = this.SelectedImages;
+                var toDrop = new List<UvgaImageFile>();
+                if (selected != null && selected.Count > 0)
+                {
+                    toDrop.AddRange(selected);
+                }
 
-            if (!toDrop.Contains(dw.SourceItem))
-            {
-                toDrop.Add(dw.SourceItem);
-            }
+                if (!toDrop.Contains(dw.SourceItem))
+                {
+                    toDrop.Add(dw.SourceItem);
+                }
 
-            if (toDrop.Count > 0)
+                if (toDrop.Count > 0)
+                {
+                    this.LvImages.AllowDrop = false;
+                    this.selectedOnMouseDown.Clear();
+                    this.selectedOnMouseDown.AddRange(toDrop);
+                    this.mouseDownOnItem = true;
+                }
+            }
+            else if (e.Clicks == 2)
             {
-                this.LvImages.AllowDrop = false;
                 this.selectedOnMouseDown.Clear();
-                this.selectedOnMouseDown.AddRange(toDrop);
-                this.mouseDownOnItem = true;
+                this.mouseDownOnItem = false;
+                this.OnImageDoubleClicked(new ImageItemsEventArgs([dw.SourceItem]));
             }
         }
     }
