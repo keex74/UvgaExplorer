@@ -198,17 +198,21 @@ internal static class UvgaOperations
     /// <param name="parent">The parent window.</param>
     /// <param name="uvgaFile">The uvga file.</param>
     /// <param name="selectedImages">The selected images.</param>
-    public static void DeleteSelected(IWin32Window parent, UvgaCollection uvgaFile, IReadOnlyCollection<UvgaImageFile> selectedImages)
+    /// <param name="showConfirmation">Whether to show a confirmation warning.</param>
+    public static void DeleteSelected(IWin32Window parent, UvgaCollection uvgaFile, IReadOnlyCollection<UvgaImageFile> selectedImages, bool showConfirmation = true)
     {
         if (selectedImages.Count == 0)
         {
             return;
         }
 
-        var dlg = MessageBox.Show(parent, "Do you want to delete the selected images?", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        if (dlg == DialogResult.Cancel)
+        if (showConfirmation)
         {
-            return;
+            var dlg = MessageBox.Show(parent, "Do you want to delete the selected images?", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dlg == DialogResult.Cancel)
+            {
+                return;
+            }
         }
 
         foreach (var item in selectedImages)

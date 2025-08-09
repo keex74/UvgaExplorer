@@ -117,7 +117,7 @@ internal partial class UvgaFileExplorer
 
         this.uvgaListDisplay1.CopySelectedImagesToClipboard();
         var selected = this.uvgaListDisplay1.SelectedImages;
-        UvgaOperations.DeleteSelected(this, this.currentFile, selected);
+        UvgaOperations.DeleteSelected(this, this.currentFile, selected, false);
         this.ShowUvgaFile(this.currentFile);
     }
 
