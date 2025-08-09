@@ -79,12 +79,18 @@ internal partial class FrmMain
             this.Text = "AO GUI Graphics Browser - " + t!.Text;
         }
 
-        this.BtnClose.Enabled = hasFile;
+        this.BtnCloseFile.Enabled = hasFile;
+        this.BtnTsClose.Enabled = hasFile;
         this.BtnSave.Enabled = hasFile;
+        this.BtnTsSave.Enabled = hasFile;
         this.BtnSaveAs.Enabled = hasFile;
         this.BtnImportImages.Enabled = hasFile;
         this.BtnExportImages.Enabled = hasFile;
         this.EditMenu.Enabled = hasFile;
+        this.BtnTsDeleteSelected.Enabled = hasFile;
+        this.BtnTsCopy.Enabled = hasFile;
+        this.BtnTsCut.Enabled = hasFile;
+        this.BtnTsPaste.Enabled = hasFile;
     }
 
     private void NewEditor(UvgaCollection? newFile = null)
