@@ -56,6 +56,7 @@ internal partial class UvgaFileExplorer
         if (newFile != null)
         {
             this.currentFile?.Dispose();
+            newFile.SortList();
             this.currentFile = newFile;
             this.ShowUvgaFile(this.currentFile);
             this.UpdateTitle();
@@ -166,6 +167,7 @@ internal partial class UvgaFileExplorer
         }
 
         UvgaOperations.ImportImages(this, this.currentFile, ofd.FileNames);
+        this.currentFile.SortList();
         this.ShowUvgaFile(this.currentFile);
     }
 
@@ -253,6 +255,7 @@ internal partial class UvgaFileExplorer
             }
         }
 
+        this.currentFile.SortList();
         this.ShowUvgaFile(this.currentFile);
     }
 

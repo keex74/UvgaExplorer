@@ -36,6 +36,14 @@ internal class UvgaCollection
     /// </summary>
     public string SourcePath { get; set; }
 
+    /// <summary>
+    /// Order the list by name.
+    /// </summary>
+    public void SortList()
+    {
+        this.Sort((v1, v2) => v1.Name.CompareTo(v2.Name));
+    }
+
     /// <inheritdoc/>
     public void Dispose()
     {
