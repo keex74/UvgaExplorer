@@ -33,5 +33,5 @@ foreach (UvgaImageContent image in uvga.Images)
 var uvga = new UvgaFile();
 var imageData = File.ReadAllBytes(@"C:\test\image1.png"); // Should be 24bpp RGB PNG images
 uvga.Images.Add(new UvgaImageContent("GFX_GUI_ACTIONVIEW_HEALTHBAR", imageData));
-uvga.Save(@"C:\test\MyNewUVGA.uvgi"); // Extension is not important, it will create both MyNewUVGA.uvgi and MyNewUVGA.uvga
+uvga.Save(@"C:\test\MyNewUVGA.uvgi", false); // Extension is not important, it will create both MyNewUVGA.uvgi and MyNewUVGA.uvga
 ```
