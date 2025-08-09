@@ -100,7 +100,7 @@ internal static class UvgaOperations
 
                 // Make sure that the image data is a 24bpp PNG.
                 data = FixImageData(data);
-                var fn = Path.GetFileName(file);
+                var fn = Path.GetFileNameWithoutExtension(file);
                 var rawimgfile = new UvgaImageContent(fn, data);
                 var imgFile = new UvgaImageFile(rawimgfile);
                 ReplaceImage(uvgaFile, imgFile);
@@ -238,29 +238,12 @@ internal static class UvgaOperations
         }
     }
 
-    private static void SaveFileUnder(IWin32Window parent, UvgaCollection file, string filename)
-    {
-        if (string.IsNullOrEmpty(filename))
-        {
-            return;
-        }
-
-        try
-        {
-            var target = new UvgaFile();
-            target.Images.AddRange(file.Select(f => f.Source));
-            target.Save(filename, true);
-            file.SourcePath = filename;
-            return;
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(parent, $"Failed to save the file.{Environment.NewLine}{Environment.NewLine}Error:{Environment.NewLine}{ex}", "Saving failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-    }
-
-    private static byte[] FixImageData(byte[] data)
+    /// <summary>
+    /// Checks the given image data and converts it to the correct format if needed.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns>The fixed data.</returns>
+    public static byte[] FixImageData(byte[] data)
     {
         if (!CheckPngPixelFormat(data))
         {
@@ -287,6 +270,28 @@ internal static class UvgaOperations
         else
         {
             return data;
+        }
+    }
+
+    private static void SaveFileUnder(IWin32Window parent, UvgaCollection file, string filename)
+    {
+        if (string.IsNullOrEmpty(filename))
+        {
+            return;
+        }
+
+        try
+        {
+            var target = new UvgaFile();
+            target.Images.AddRange(file.Select(f => f.Source));
+            target.Save(filename, true);
+            file.SourcePath = filename;
+            return;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(parent, $"Failed to save the file.{Environment.NewLine}{Environment.NewLine}Error:{Environment.NewLine}{ex}", "Saving failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
         }
     }
 

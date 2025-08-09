@@ -159,11 +159,6 @@ public class UvgaFile
                 {
                     var data = i.ImageData.ToArray();
                     var name = i.Name;
-                    if (!string.Equals(Path.GetExtension(name), ".png", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        name = Path.GetFileNameWithoutExtension(name) + ".png";
-                    }
-
                     sw.WriteLine($"{name} {fs.Position} {data.Length}");
                     fs.Write(data, 0, data.Length);
                 }

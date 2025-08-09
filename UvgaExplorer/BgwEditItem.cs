@@ -52,6 +52,7 @@ internal class BgwEditItem
             }
 
             var readback = File.ReadAllBytes(tempfile);
+            readback = UvgaOperations.FixImageData(readback);
             var newSource = new UvgaImageContent(data.Item.Name, readback);
             var newItem = new UvgaImageFile(newSource);
             data.NewItem = newItem;
