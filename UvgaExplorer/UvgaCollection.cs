@@ -27,7 +27,14 @@ internal class UvgaCollection
         {
             this.Add(new UvgaImageFile(item));
         }
+
+        this.SourcePath = file.SourceUvgaPath;
     }
+
+    /// <summary>
+    /// Gets or sets the source path of the .uvga file.
+    /// </summary>
+    public string SourcePath { get; set; }
 
     /// <inheritdoc/>
     public void Dispose()

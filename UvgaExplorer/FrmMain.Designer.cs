@@ -31,7 +31,6 @@ partial class FrmMain
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
         this.toolStripContainer1 = new ToolStripContainer();
         this.splitContainer1 = new SplitContainer();
-        this.listView1 = new DblBufferedListView();
         this.detailView1 = new DetailView();
         this.toolStrip1 = new ToolStrip();
         this.BtnNewUvga = new ToolStripButton();
@@ -44,6 +43,7 @@ partial class FrmMain
         this.toolStripSeparator1 = new ToolStripSeparator();
         this.BtnAbout = new ToolStripButton();
         this.bgwEditItem1 = new BgwEditItem();
+        this.uvgaListDisplay1 = new UvgaListDisplay();
         this.toolStripContainer1.ContentPanel.SuspendLayout();
         this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
         this.toolStripContainer1.SuspendLayout();
@@ -83,7 +83,7 @@ partial class FrmMain
         // 
         // splitContainer1.Panel1
         // 
-        this.splitContainer1.Panel1.Controls.Add(this.listView1);
+        this.splitContainer1.Panel1.Controls.Add(this.uvgaListDisplay1);
         // 
         // splitContainer1.Panel2
         // 
@@ -91,16 +91,6 @@ partial class FrmMain
         this.splitContainer1.Size = new Size(1084, 836);
         this.splitContainer1.SplitterDistance = 769;
         this.splitContainer1.TabIndex = 1;
-        // 
-        // listView1
-        // 
-        this.listView1.Dock = DockStyle.Fill;
-        this.listView1.Location = new Point(0, 0);
-        this.listView1.Name = "listView1";
-        this.listView1.Size = new Size(769, 836);
-        this.listView1.TabIndex = 0;
-        this.listView1.UseCompatibleStateImageBehavior = false;
-        this.listView1.KeyDown += ListView1_KeyDown;
         // 
         // detailView1
         // 
@@ -192,6 +182,15 @@ partial class FrmMain
         this.BtnAbout.Text = "About";
         this.BtnAbout.Click += BtnAbout_Click;
         // 
+        // uvgaListDisplay1
+        // 
+        this.uvgaListDisplay1.ActiveImage = null;
+        this.uvgaListDisplay1.Dock = DockStyle.Fill;
+        this.uvgaListDisplay1.Location = new Point(0, 0);
+        this.uvgaListDisplay1.Name = "uvgaListDisplay1";
+        this.uvgaListDisplay1.Size = new Size(769, 836);
+        this.uvgaListDisplay1.TabIndex = 0;
+        // 
         // FrmMain
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -226,10 +225,10 @@ partial class FrmMain
     private ToolStripButton BtnExportSelected;
     private ToolStripButton BtnImportImages;
     private ToolStripSeparator toolStripSeparator1;
-    private DblBufferedListView listView1;
     private SplitContainer splitContainer1;
     private DetailView detailView1;
     private ToolStripButton BtnDeleteSelected;
     private BgwEditItem bgwEditItem1;
     private ToolStripButton BtnAbout;
+    private UvgaListDisplay uvgaListDisplay1;
 }
