@@ -14,7 +14,9 @@ using LibUvgaFile;
 internal partial class UvgaListDisplay
     : UserControl
 {
+    private readonly List<UvgaImageFile> selectedOnMouseDown = [];
     private UvgaCollection currentimages;
+    private bool mouseDownOnItem = false;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UvgaListDisplay"/> class.
@@ -29,6 +31,9 @@ internal partial class UvgaListDisplay
         this.LvImages.KeyDown += this.LvImages_KeyDown;
         this.LvImages.DragEnter += this.LvImages_DragEnter;
         this.LvImages.DragDrop += this.LvImages_DragDrop;
+        this.LvImages.MouseDown += this.LvImages_MouseDown;
+        this.LvImages.MouseUp += this.LvImages_MouseUp;
+        this.LvImages.MouseMove += this.LvImages_MouseMove;
     }
 
     /// <summary>
@@ -278,6 +283,80 @@ internal partial class UvgaListDisplay
         {
             e.Effect = DragDropEffects.Copy;
         }
+    }
+
+    private void LvImages_MouseDown(object? sender, MouseEventArgs e)
+    {
+        // If mouse is pressed on an item, save this for later to initiate a drag&drop operation if the mouse is moved.
+        var ht = this.LvImages.HitTest(e.Location);
+        if (ht.Item is DisplayWrapper dw)
+        {
+            var selected = this.SelectedImages;
+            var toDrop = new List<UvgaImageFile>();
+            if (selected != null && selected.Count > 0)
+            {
+                toDrop.AddRange(selected);
+            }
+
+            if (!toDrop.Contains(dw.SourceItem))
+            {
+                toDrop.Add(dw.SourceItem);
+            }
+
+            if (toDrop.Count > 0)
+            {
+                this.LvImages.AllowDrop = false;
+                this.selectedOnMouseDown.Clear();
+                this.selectedOnMouseDown.AddRange(toDrop);
+                this.mouseDownOnItem = true;
+            }
+        }
+    }
+
+    private void LvImages_MouseMove(object? sender, MouseEventArgs e)
+    {
+        if (this.mouseDownOnItem && this.selectedOnMouseDown.Count > 0)
+        {
+            // Drag of file out started. Save the files to drop as temp files
+            var createdFiles = new List<string>();
+            var folder = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+
+            try
+            {
+                Directory.CreateDirectory(folder);
+                foreach (var item in this.selectedOnMouseDown)
+                {
+                    var fn = item.Source.Name;
+                    var outputFile = Path.Combine(folder, fn);
+                    var arr = item.Source.ImageData.ToArray();
+                    File.WriteAllBytes(outputFile, arr);
+                    createdFiles.Add(outputFile);
+                }
+
+                // Perform the drag & drop operation
+                var data = new DataObject(DataFormats.FileDrop, createdFiles.ToArray());
+                var eff = this.LvImages.DoDragDrop(data, DragDropEffects.Copy | DragDropEffects.Move);
+                this.selectedOnMouseDown.Clear();
+                this.mouseDownOnItem = false;
+                this.LvImages.AllowDrop = false;
+            }
+            catch (Exception)
+            {
+                // Well...didn't work :|
+            }
+            finally
+            {
+                // Clean up the temp directory
+                Directory.Delete(folder, true);
+            }
+        }
+    }
+
+    private void LvImages_MouseUp(object? sender, MouseEventArgs e)
+    {
+        this.selectedOnMouseDown.Clear();
+        this.mouseDownOnItem = false;
+        this.LvImages.AllowDrop = true;
     }
 
     private class DisplayWrapper
