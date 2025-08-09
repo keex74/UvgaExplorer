@@ -7,7 +7,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<VersionPrefix>0.9.3</VersionPrefix>
+		<VersionPrefix>0.9.4</VersionPrefix>
 		<Title>UvgaExplorer</Title>
 		<Authors>Keex</Authors>
 		<Company />
