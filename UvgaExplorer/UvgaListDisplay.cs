@@ -355,7 +355,8 @@ internal partial class UvgaListDisplay
                 Directory.CreateDirectory(folder);
                 foreach (var item in this.selectedOnMouseDown)
                 {
-                    var fn = item.Source.Name;
+                    // Images in the UVGA don't have extensions.
+                    var fn = item.Source.Name + ".png";
                     var outputFile = Path.Combine(folder, fn);
                     var arr = item.Source.ImageData.ToArray();
                     File.WriteAllBytes(outputFile, arr);
