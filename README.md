@@ -1,3 +1,21 @@
+# UvgaExplorer
+**UvgaExplorer** is a .NET 8.0 GUI application that allows editing the contents of the UVGA/UVGI file parts.
+You can open existing files, export the contents, import images, or edit images in an external application by double-clicking them.
+
+![ScreenShot](screenshot.png)
+
+Features include:
+- Open multiple UVGA/I files in the same application
+- Free browsing of the images
+- Import / Export functions incl. image format adjustment
+- Copy / Paste or drag & drop between open files
+- Drag & Drop interface with Windows explorer
+- Open images in external editor by double-click with automatic re-import
+- Automatic backup creation
+
+Requirements:
+Install the .NET 8 Desktop Runtime.
+
 # LibUvga
 **LibUvga** is a .NET Standard 2.0 library to open .UVGA/.UVGI file pairs that contain the images that are used to display the ingame GUI of the game Anarchy Online.
 
@@ -17,9 +35,3 @@ var imageData = File.ReadAllBytes(@"C:\test\image1.png"); // Should be 24bpp RGB
 uvga.Images.Add(new UvgaImageContent("GFX_GUI_ACTIONVIEW_HEALTHBAR", imageData));
 uvga.Save(@"C:\test\MyNewUVGA.uvgi"); // Extension is not important, it will create both MyNewUVGA.uvgi and MyNewUVGA.uvga
 ```
-
-# UvgaExplorer
-**UvgaExplorer** is a .NET 8.0 GUI application that allows editing the contents of the UVGA/UVGI file parts.
-You can open existing files, export the contents, import images, or edit images in an external application by double-clicking them.
-
-![ScreenShot](screenshot.png)
