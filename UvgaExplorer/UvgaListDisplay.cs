@@ -24,8 +24,11 @@ internal partial class UvgaListDisplay
         this.InitializeComponent();
         var newfile = new UvgaFile();
         this.currentimages = new UvgaCollection(newfile);
+        this.LvImages.AllowDrop = true;
         this.LvImages.MouseDoubleClick += this.LvImages_MouseDoubleClick;
         this.LvImages.KeyDown += this.LvImages_KeyDown;
+        this.LvImages.DragEnter += this.LvImages_DragEnter;
+        this.LvImages.DragDrop += this.LvImages_DragDrop;
     }
 
     /// <summary>
@@ -42,6 +45,11 @@ internal partial class UvgaListDisplay
     /// Raised when an image was double-clicked.
     /// </summary>
     public event EventHandler<ImageItemsEventArgs>? ImageDoubleClicked;
+
+    /// <summary>
+    /// Raised when an image import was requested.
+    /// </summary>
+    public event EventHandler<FileDropEventArgs>? ImageImportRequested;
 
     /// <summary>
     /// Gets or sets the currently active image.
@@ -88,6 +96,15 @@ internal partial class UvgaListDisplay
     protected virtual void OnImageDoubleClicked(ImageItemsEventArgs e)
     {
         this.ImageDoubleClicked?.Invoke(this, e);
+    }
+
+    /// <summary>
+    /// Raises the <see cref="ImageImportRequested"/> event.
+    /// </summary>
+    /// <param name="e">The event arguments.</param>
+    protected virtual void OnImageImportRequested(FileDropEventArgs e)
+    {
+        this.ImageImportRequested?.Invoke(this, e);
     }
 
     private List<UvgaImageFile> GetSelectedImages()
@@ -234,6 +251,32 @@ internal partial class UvgaListDisplay
             }
 
             this.LvImages.EndUpdate();
+        }
+    }
+
+    private void LvImages_DragDrop(object? sender, DragEventArgs e)
+    {
+        if (e.Data == null || !e.Data.GetDataPresent(DataFormats.FileDrop) || (e.AllowedEffect & DragDropEffects.Copy) == 0)
+        {
+            return;
+        }
+
+        if (e.Data.GetData(DataFormats.FileDrop) is string[] dropdata && dropdata.Length > 0)
+        {
+            this.OnImageImportRequested(new FileDropEventArgs(dropdata));
+        }
+    }
+
+    private void LvImages_DragEnter(object? sender, DragEventArgs e)
+    {
+        if (e.Data == null)
+        {
+            return;
+        }
+
+        if (e.Data.GetDataPresent(DataFormats.FileDrop) && (e.AllowedEffect & DragDropEffects.Copy) > 0)
+        {
+            e.Effect = DragDropEffects.Copy;
         }
     }
 

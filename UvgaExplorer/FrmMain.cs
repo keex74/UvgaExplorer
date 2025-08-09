@@ -26,6 +26,7 @@ internal partial class FrmMain
         this.UpdateTitle();
         this.uvgaListDisplay1.ImageDoubleClicked += this.UvgaListDisplay1_ImageDoubleClicked;
         this.uvgaListDisplay1.ActiveImageChanged += this.UvgaListDisplay1_ActiveImageChanged;
+        this.uvgaListDisplay1.ImageImportRequested += this.UvgaListDisplay1_ImageImportRequested;
         this.bgwEditItem1.RunWorkerCompleted += this.BgwEditItem_RunWorkerCompleted;
     }
 
@@ -47,6 +48,17 @@ internal partial class FrmMain
     {
         var image = this.uvgaListDisplay1.ActiveImage;
         this.detailView1.Display(image);
+    }
+
+    private void UvgaListDisplay1_ImageImportRequested(object? sender, FileDropEventArgs e)
+    {
+        if (this.currentFile == null)
+        {
+            return;
+        }
+
+        UvgaOperations.ImportImages(this, this.currentFile, e.FileNames);
+        this.ShowUvgaFile(this.currentFile);
     }
 
     private void OpenToolStripButton_Click(object sender, EventArgs e)
