@@ -28,6 +28,24 @@ internal partial class FrmMain
         this.uvgaListDisplay1.ActiveImageChanged += this.UvgaListDisplay1_ActiveImageChanged;
         this.uvgaListDisplay1.ImageImportRequested += this.UvgaListDisplay1_ImageImportRequested;
         this.bgwEditItem1.RunWorkerCompleted += this.BgwEditItem_RunWorkerCompleted;
+        var viewItems = Enum.GetValues(typeof(View));
+        foreach (View value in viewItems)
+        {
+            var btn = new ToolStripMenuItem(value.ToString().Replace("Icon", " Icon"));
+            btn.Tag = value;
+            this.BtnListStyle.DropDownItems.Add(btn);
+            btn.Click += this.SetListViewStyle;
+        }
+    }
+
+    private void SetListViewStyle(object? sender, EventArgs e)
+    {
+        if (sender is not ToolStripMenuItem btn || btn.Tag is not View view)
+        {
+            return;
+        }
+
+        this.uvgaListDisplay1.Liststyle = view;
     }
 
     private void BgwEditItem_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)

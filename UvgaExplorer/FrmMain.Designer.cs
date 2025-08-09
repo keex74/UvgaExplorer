@@ -31,6 +31,7 @@ partial class FrmMain
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
         this.toolStripContainer1 = new ToolStripContainer();
         this.splitContainer1 = new SplitContainer();
+        this.uvgaListDisplay1 = new UvgaListDisplay();
         this.detailView1 = new DetailView();
         this.toolStrip1 = new ToolStrip();
         this.BtnNewUvga = new ToolStripButton();
@@ -43,7 +44,8 @@ partial class FrmMain
         this.toolStripSeparator1 = new ToolStripSeparator();
         this.BtnAbout = new ToolStripButton();
         this.bgwEditItem1 = new BgwEditItem();
-        this.uvgaListDisplay1 = new UvgaListDisplay();
+        this.toolStripSeparator2 = new ToolStripSeparator();
+        this.BtnListStyle = new ToolStripDropDownButton();
         this.toolStripContainer1.ContentPanel.SuspendLayout();
         this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
         this.toolStripContainer1.SuspendLayout();
@@ -92,6 +94,15 @@ partial class FrmMain
         this.splitContainer1.SplitterDistance = 769;
         this.splitContainer1.TabIndex = 1;
         // 
+        // uvgaListDisplay1
+        // 
+        this.uvgaListDisplay1.ActiveImage = null;
+        this.uvgaListDisplay1.Dock = DockStyle.Fill;
+        this.uvgaListDisplay1.Location = new Point(0, 0);
+        this.uvgaListDisplay1.Name = "uvgaListDisplay1";
+        this.uvgaListDisplay1.Size = new Size(769, 836);
+        this.uvgaListDisplay1.TabIndex = 0;
+        // 
         // detailView1
         // 
         this.detailView1.Dock = DockStyle.Fill;
@@ -103,10 +114,10 @@ partial class FrmMain
         // toolStrip1
         // 
         this.toolStrip1.Dock = DockStyle.None;
-        this.toolStrip1.Items.AddRange(new ToolStripItem[] { this.BtnNewUvga, this.BtnOpenUVGA, this.BtnSaveAs, this.toolStripSeparator, this.BtnDeleteSelected, this.BtnExportSelected, this.BtnImportImages, this.toolStripSeparator1, this.BtnAbout });
+        this.toolStrip1.Items.AddRange(new ToolStripItem[] { this.BtnNewUvga, this.BtnOpenUVGA, this.BtnSaveAs, this.toolStripSeparator, this.BtnDeleteSelected, this.BtnExportSelected, this.BtnImportImages, this.toolStripSeparator1, this.BtnAbout, this.toolStripSeparator2, this.BtnListStyle });
         this.toolStrip1.Location = new Point(3, 0);
         this.toolStrip1.Name = "toolStrip1";
-        this.toolStrip1.Size = new Size(575, 25);
+        this.toolStrip1.Size = new Size(678, 25);
         this.toolStrip1.TabIndex = 0;
         // 
         // BtnNewUvga
@@ -182,14 +193,19 @@ partial class FrmMain
         this.BtnAbout.Text = "About";
         this.BtnAbout.Click += BtnAbout_Click;
         // 
-        // uvgaListDisplay1
+        // toolStripSeparator2
         // 
-        this.uvgaListDisplay1.ActiveImage = null;
-        this.uvgaListDisplay1.Dock = DockStyle.Fill;
-        this.uvgaListDisplay1.Location = new Point(0, 0);
-        this.uvgaListDisplay1.Name = "uvgaListDisplay1";
-        this.uvgaListDisplay1.Size = new Size(769, 836);
-        this.uvgaListDisplay1.TabIndex = 0;
+        this.toolStripSeparator2.Name = "toolStripSeparator2";
+        this.toolStripSeparator2.Size = new Size(6, 25);
+        // 
+        // BtnListStyle
+        // 
+        this.BtnListStyle.DisplayStyle = ToolStripItemDisplayStyle.Text;
+        this.BtnListStyle.Image = (Image)resources.GetObject("BtnListStyle.Image");
+        this.BtnListStyle.ImageTransparentColor = Color.Magenta;
+        this.BtnListStyle.Name = "BtnListStyle";
+        this.BtnListStyle.Size = new Size(66, 22);
+        this.BtnListStyle.Text = "List Style";
         // 
         // FrmMain
         // 
@@ -231,4 +247,6 @@ partial class FrmMain
     private BgwEditItem bgwEditItem1;
     private ToolStripButton BtnAbout;
     private UvgaListDisplay uvgaListDisplay1;
+    private ToolStripSeparator toolStripSeparator2;
+    private ToolStripDropDownButton BtnListStyle;
 }

@@ -254,8 +254,10 @@ internal static class UvgaOperations
             {
                 // Also change pixel format
                 using var bmp = new Bitmap(img.Width, img.Height, PixelFormat.Format24bppRgb);
+                bmp.SetResolution(img.HorizontalResolution, img.VerticalResolution);
                 using var g = Graphics.FromImage(bmp);
                 g.DrawImageUnscaled(img, new Point(0, 0));
+                bmp.SetResolution(96, 96);
                 using var msout = new MemoryStream();
                 bmp.Save(msout, ImageFormat.Png);
                 return msout.ToArray();

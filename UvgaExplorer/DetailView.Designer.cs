@@ -29,6 +29,7 @@ partial class DetailView
     private void InitializeComponent()
     {
         this.splitContainer2 = new SplitContainer();
+        this.panel1 = new Panel();
         this.pictureBox1 = new PictureBox();
         this.tableLayoutPanel1 = new TableLayoutPanel();
         this.TbImageFormat = new TextBox();
@@ -42,6 +43,7 @@ partial class DetailView
         this.splitContainer2.Panel1.SuspendLayout();
         this.splitContainer2.Panel2.SuspendLayout();
         this.splitContainer2.SuspendLayout();
+        this.panel1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)this.pictureBox1).BeginInit();
         this.tableLayoutPanel1.SuspendLayout();
         SuspendLayout();
@@ -55,8 +57,8 @@ partial class DetailView
         // 
         // splitContainer2.Panel1
         // 
-        this.splitContainer2.Panel1.AutoScroll = true;
-        this.splitContainer2.Panel1.Controls.Add(this.pictureBox1);
+        this.splitContainer2.Panel1.Controls.Add(this.panel1);
+        this.splitContainer2.Panel1.Padding = new Padding(3);
         // 
         // splitContainer2.Panel2
         // 
@@ -65,13 +67,22 @@ partial class DetailView
         this.splitContainer2.SplitterDistance = 134;
         this.splitContainer2.TabIndex = 1;
         // 
+        // panel1
+        // 
+        this.panel1.AutoScroll = true;
+        this.panel1.BorderStyle = BorderStyle.FixedSingle;
+        this.panel1.Controls.Add(this.pictureBox1);
+        this.panel1.Dock = DockStyle.Fill;
+        this.panel1.Location = new Point(3, 3);
+        this.panel1.Name = "panel1";
+        this.panel1.Size = new Size(262, 128);
+        this.panel1.TabIndex = 1;
+        // 
         // pictureBox1
         // 
-        this.pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-        this.pictureBox1.Dock = DockStyle.Fill;
         this.pictureBox1.Location = new Point(0, 0);
         this.pictureBox1.Name = "pictureBox1";
-        this.pictureBox1.Size = new Size(268, 134);
+        this.pictureBox1.Size = new Size(2, 1);
         this.pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
         this.pictureBox1.TabIndex = 0;
         this.pictureBox1.TabStop = false;
@@ -176,10 +187,11 @@ partial class DetailView
         Name = "DetailView";
         Size = new Size(268, 386);
         this.splitContainer2.Panel1.ResumeLayout(false);
-        this.splitContainer2.Panel1.PerformLayout();
         this.splitContainer2.Panel2.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)this.splitContainer2).EndInit();
         this.splitContainer2.ResumeLayout(false);
+        this.panel1.ResumeLayout(false);
+        this.panel1.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)this.pictureBox1).EndInit();
         this.tableLayoutPanel1.ResumeLayout(false);
         this.tableLayoutPanel1.PerformLayout();
@@ -198,4 +210,5 @@ partial class DetailView
     private Label label2;
     private Label label3;
     private Button BtnSaveImage;
+    private Panel panel1;
 }

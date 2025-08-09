@@ -33,6 +33,11 @@ internal partial class UvgaListDisplay
         this.LvImages.MouseDown += this.LvImages_MouseDown;
         this.LvImages.MouseUp += this.LvImages_MouseUp;
         this.LvImages.MouseMove += this.LvImages_MouseMove;
+        this.LvImages.Columns.Add("Name");
+        this.LvImages.Columns.Add("Width");
+        this.LvImages.Columns.Add("Height");
+        this.LvImages.Columns.Add("Pixel Format");
+        this.LvImages.View = View.LargeIcon;
     }
 
     /// <summary>
@@ -64,6 +69,25 @@ internal partial class UvgaListDisplay
     /// Gets or sets the currently selected images.
     /// </summary>
     public IReadOnlyCollection<UvgaImageFile> SelectedImages { get => this.GetSelectedImages(); set => this.SetSelectedImages(value); }
+
+    /// <summary>
+    /// Gets or sets the list style.
+    /// </summary>
+    public View Liststyle
+    {
+        get => this.LvImages.View;
+        set
+        {
+            this.LvImages.View = value;
+            if (value == View.Details)
+            {
+                this.LvImages.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+                this.LvImages.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.HeaderSize);
+                this.LvImages.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize);
+                this.LvImages.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.HeaderSize);
+            }
+        }
+    }
 
     /// <summary>
     /// Initialize the control with the given image collection.
@@ -193,9 +217,15 @@ internal partial class UvgaListDisplay
                 ImageSize = new Size(32, 32),
             };
 
+            var newImagesSmall = new ImageList()
+            {
+                ImageSize = new Size(16, 16),
+            };
+
             foreach (var i in images)
             {
                 newImages.Images.Add(i.Name, i.Thumbnail);
+                newImagesSmall.Images.Add(i.Name, i.Thumbnail);
                 var item = new DisplayWrapper(i)
                 {
                     ImageKey = i.Name,
@@ -205,7 +235,7 @@ internal partial class UvgaListDisplay
             }
 
             this.LvImages.LargeImageList = newImages;
-            this.LvImages.SmallImageList = newImages;
+            this.LvImages.SmallImageList = newImagesSmall;
 
             this.LblImageCount.Text = $"{images.Count} images";
         }
@@ -213,6 +243,7 @@ internal partial class UvgaListDisplay
         {
             this.LvImages.EndUpdate();
             this.LvImages.AutoScrollOffset = scrollPosition;
+            this.LvImages.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             this.OnActiveImageChanged(EventArgs.Empty);
             this.OnSelectedImagesChanged(EventArgs.Empty);
             this.SetChangeEvent(true);
@@ -367,6 +398,10 @@ internal partial class UvgaListDisplay
             this.image = img;
             this.Text = img.Name;
             this.SourceItem = img;
+            this.SubItems.Add(img.Image.Width.ToString());
+            this.SubItems.Add(img.Image.Height.ToString());
+            var pxFormat = img.Image.PixelFormat.ToString();
+            this.SubItems.Add(pxFormat.StartsWith("Format") ? pxFormat.Substring(6) : pxFormat);
         }
 
         public UvgaImageFile SourceItem { get; }

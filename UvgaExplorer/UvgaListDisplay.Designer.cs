@@ -34,21 +34,21 @@
             this.statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // dblBufferedListView1
+            // LvImages
             // 
             this.LvImages.Dock = DockStyle.Fill;
-            this.LvImages.Location = new Point(0, 0);
-            this.LvImages.Name = "dblBufferedListView1";
-            this.LvImages.Size = new Size(626, 354);
+            this.LvImages.Location = new Point(3, 3);
+            this.LvImages.Name = "LvImages";
+            this.LvImages.Size = new Size(620, 348);
             this.LvImages.TabIndex = 0;
             this.LvImages.UseCompatibleStateImageBehavior = false;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new ToolStripItem[] { this.LblImageCount });
-            this.statusStrip1.Location = new Point(0, 354);
+            this.statusStrip1.Location = new Point(3, 351);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new Size(626, 22);
+            this.statusStrip1.Size = new Size(620, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -65,6 +65,7 @@
             Controls.Add(this.LvImages);
             Controls.Add(this.statusStrip1);
             Name = "UvgaListDisplay";
+            Padding = new Padding(3);
             Size = new Size(626, 376);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
