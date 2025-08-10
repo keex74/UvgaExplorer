@@ -9,6 +9,7 @@ namespace UvgaExplorer;
 using System.ComponentModel;
 using System.Windows.Forms;
 using LibUvgaFile;
+using UvgaExplorer.ImageTransformation;
 
 /// <summary>
 /// Defines a complete edit control for UVGA files.
@@ -195,6 +196,67 @@ internal partial class UvgaFileExplorer
     public void DoSelectAll()
     {
         this.uvgaListDisplay1.SelectAll();
+    }
+
+    /// <summary>
+    /// Run an image transformation on the currently selected images.
+    /// </summary>
+    /// <param name="transformer">The transformer to run.</param>
+    public void RunImageTransformation(IImageTransformer transformer)
+    {
+        if (this.currentFile == null)
+        {
+            return;
+        }
+
+        var selected = this.uvgaListDisplay1.SelectedImages;
+        if (selected.Count == 0)
+        {
+            return;
+        }
+
+        using var ctrl = transformer.GetConfigurationControl();
+        if (ctrl != null)
+        {
+            using var frm = new TransformationSetupForm();
+            frm.Initialize(ctrl);
+            var dlg = frm.ShowDialog(this);
+            if (dlg != DialogResult.OK)
+            {
+                return;
+            }
+        }
+
+        foreach (var img in selected)
+        {
+            var newimage = transformer.TransformImage(img.Image, ctrl);
+            if (newimage == null)
+            {
+                continue;
+            }
+
+            // Potentially fix the pixel format if the image didn't take care of it.
+            if (newimage.PixelFormat != System.Drawing.Imaging.PixelFormat.Format24bppRgb)
+            {
+                var bmpFixed = new Bitmap(newimage.Width, newimage.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                bmpFixed.SetResolution(newimage.HorizontalResolution, newimage.VerticalResolution);
+                using var g = Graphics.FromImage(bmpFixed);
+                g.DrawImageUnscaled(newimage, 0, 0);
+                newimage.Dispose();
+                newimage = bmpFixed;
+            }
+
+            // Replace the image.
+            using var ms = new MemoryStream();
+            newimage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            newimage.Dispose();
+            var data = ms.ToArray();
+            var replaceImage = new UvgaImageContent(img.Name, data);
+            var uvgaimg = new UvgaImageFile(replaceImage);
+            UvgaOperations.ReplaceImage(this.currentFile, uvgaimg);
+        }
+
+        this.ShowUvgaFile(this.currentFile);
     }
 
     /// <summary>

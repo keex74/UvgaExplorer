@@ -72,6 +72,8 @@ partial class FrmMain
         this.BtnTsPaste = new ToolStripButton();
         this.toolStripSeparator5 = new ToolStripSeparator();
         this.BtnTsAbout = new ToolStripButton();
+        this.ImageTransformMenu = new ToolStripMenuItem();
+        this.BtnScaleImageTransform = new ToolStripMenuItem();
         this.menuStrip1.SuspendLayout();
         this.toolStripContainer1.ContentPanel.SuspendLayout();
         this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -110,7 +112,7 @@ partial class FrmMain
         this.BtnNew.ImageTransparentColor = Color.Magenta;
         this.BtnNew.Name = "BtnNew";
         this.BtnNew.ShortcutKeys = Keys.Control | Keys.N;
-        this.BtnNew.Size = new Size(180, 22);
+        this.BtnNew.Size = new Size(160, 22);
         this.BtnNew.Text = "&New";
         this.BtnNew.Click += BtnNew_Click;
         // 
@@ -120,14 +122,14 @@ partial class FrmMain
         this.BtnOpen.ImageTransparentColor = Color.Magenta;
         this.BtnOpen.Name = "BtnOpen";
         this.BtnOpen.ShortcutKeys = Keys.Control | Keys.O;
-        this.BtnOpen.Size = new Size(180, 22);
+        this.BtnOpen.Size = new Size(160, 22);
         this.BtnOpen.Text = "&Open";
         this.BtnOpen.Click += BtnOpen_Click;
         // 
         // toolStripSeparator
         // 
         this.toolStripSeparator.Name = "toolStripSeparator";
-        this.toolStripSeparator.Size = new Size(177, 6);
+        this.toolStripSeparator.Size = new Size(157, 6);
         // 
         // BtnSave
         // 
@@ -135,58 +137,58 @@ partial class FrmMain
         this.BtnSave.ImageTransparentColor = Color.Magenta;
         this.BtnSave.Name = "BtnSave";
         this.BtnSave.ShortcutKeys = Keys.Control | Keys.S;
-        this.BtnSave.Size = new Size(180, 22);
+        this.BtnSave.Size = new Size(160, 22);
         this.BtnSave.Text = "&Save";
         this.BtnSave.Click += BtnSave_Click;
         // 
         // BtnSaveAs
         // 
         this.BtnSaveAs.Name = "BtnSaveAs";
-        this.BtnSaveAs.Size = new Size(180, 22);
+        this.BtnSaveAs.Size = new Size(160, 22);
         this.BtnSaveAs.Text = "Save &As";
         this.BtnSaveAs.Click += BtnSaveAs_Click;
         // 
         // toolStripSeparator1
         // 
         this.toolStripSeparator1.Name = "toolStripSeparator1";
-        this.toolStripSeparator1.Size = new Size(177, 6);
+        this.toolStripSeparator1.Size = new Size(157, 6);
         // 
         // BtnCloseFile
         // 
         this.BtnCloseFile.Image = Properties.Resources.Close16;
         this.BtnCloseFile.Name = "BtnCloseFile";
-        this.BtnCloseFile.Size = new Size(180, 22);
+        this.BtnCloseFile.Size = new Size(160, 22);
         this.BtnCloseFile.Text = "Close file";
         this.BtnCloseFile.Click += BtnClose_Click;
         // 
         // toolStripSeparator2
         // 
         this.toolStripSeparator2.Name = "toolStripSeparator2";
-        this.toolStripSeparator2.Size = new Size(177, 6);
+        this.toolStripSeparator2.Size = new Size(157, 6);
         // 
         // BtnImportImages
         // 
         this.BtnImportImages.Name = "BtnImportImages";
-        this.BtnImportImages.Size = new Size(180, 22);
+        this.BtnImportImages.Size = new Size(160, 22);
         this.BtnImportImages.Text = "Import images...";
         this.BtnImportImages.Click += BtnImportImages_Click;
         // 
         // BtnExportImages
         // 
         this.BtnExportImages.Name = "BtnExportImages";
-        this.BtnExportImages.Size = new Size(180, 22);
+        this.BtnExportImages.Size = new Size(160, 22);
         this.BtnExportImages.Text = "Export images...";
         this.BtnExportImages.Click += BtnExportImages_Click;
         // 
         // toolStripSeparator3
         // 
         this.toolStripSeparator3.Name = "toolStripSeparator3";
-        this.toolStripSeparator3.Size = new Size(177, 6);
+        this.toolStripSeparator3.Size = new Size(157, 6);
         // 
         // BtnExit
         // 
         this.BtnExit.Name = "BtnExit";
-        this.BtnExit.Size = new Size(180, 22);
+        this.BtnExit.Size = new Size(160, 22);
         this.BtnExit.Text = "E&xit";
         this.BtnExit.Click += BtnExit_Click;
         // 
@@ -201,7 +203,7 @@ partial class FrmMain
         // 
         this.BtnDeleteSelected.Image = Properties.Resources.Delete16;
         this.BtnDeleteSelected.Name = "BtnDeleteSelected";
-        this.BtnDeleteSelected.Size = new Size(158, 22);
+        this.BtnDeleteSelected.Size = new Size(180, 22);
         this.BtnDeleteSelected.Text = "Remove images";
         this.BtnDeleteSelected.Click += BtnDeleteSelected_Click;
         // 
@@ -211,7 +213,7 @@ partial class FrmMain
         this.BtnCut.ImageTransparentColor = Color.Magenta;
         this.BtnCut.Name = "BtnCut";
         this.BtnCut.ShortcutKeys = Keys.Control | Keys.X;
-        this.BtnCut.Size = new Size(158, 22);
+        this.BtnCut.Size = new Size(180, 22);
         this.BtnCut.Text = "Cu&t";
         this.BtnCut.Click += BtnCut_Click;
         // 
@@ -221,7 +223,7 @@ partial class FrmMain
         this.BtnCopy.ImageTransparentColor = Color.Magenta;
         this.BtnCopy.Name = "BtnCopy";
         this.BtnCopy.ShortcutKeys = Keys.Control | Keys.C;
-        this.BtnCopy.Size = new Size(158, 22);
+        this.BtnCopy.Size = new Size(180, 22);
         this.BtnCopy.Text = "&Copy";
         this.BtnCopy.Click += BtnCopy_Click;
         // 
@@ -231,25 +233,25 @@ partial class FrmMain
         this.BtnPaste.ImageTransparentColor = Color.Magenta;
         this.BtnPaste.Name = "BtnPaste";
         this.BtnPaste.ShortcutKeys = Keys.Control | Keys.V;
-        this.BtnPaste.Size = new Size(158, 22);
+        this.BtnPaste.Size = new Size(180, 22);
         this.BtnPaste.Text = "&Paste";
         this.BtnPaste.Click += BtnPaste_Click;
         // 
         // toolStripSeparator7
         // 
         this.toolStripSeparator7.Name = "toolStripSeparator7";
-        this.toolStripSeparator7.Size = new Size(155, 6);
+        this.toolStripSeparator7.Size = new Size(177, 6);
         // 
         // BtnSelectAll
         // 
         this.BtnSelectAll.Name = "BtnSelectAll";
-        this.BtnSelectAll.Size = new Size(158, 22);
+        this.BtnSelectAll.Size = new Size(180, 22);
         this.BtnSelectAll.Text = "Select &All";
         this.BtnSelectAll.Click += BtnSelectAll_Click;
         // 
         // toolsToolStripMenuItem
         // 
-        this.toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.BtnListStyle, this.optionsToolStripMenuItem });
+        this.toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.BtnListStyle, this.optionsToolStripMenuItem, this.ImageTransformMenu });
         this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
         this.toolsToolStripMenuItem.Size = new Size(46, 20);
         this.toolsToolStripMenuItem.Text = "&Tools";
@@ -257,14 +259,14 @@ partial class FrmMain
         // BtnListStyle
         // 
         this.BtnListStyle.Name = "BtnListStyle";
-        this.BtnListStyle.Size = new Size(120, 22);
+        this.BtnListStyle.Size = new Size(195, 22);
         this.BtnListStyle.Text = "List Style";
         // 
         // optionsToolStripMenuItem
         // 
         this.optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.BtnAutomaticBackups });
         this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-        this.optionsToolStripMenuItem.Size = new Size(120, 22);
+        this.optionsToolStripMenuItem.Size = new Size(195, 22);
         this.optionsToolStripMenuItem.Text = "&Options";
         // 
         // BtnAutomaticBackups
@@ -427,6 +429,20 @@ partial class FrmMain
         this.BtnTsAbout.Text = "He&lp";
         this.BtnTsAbout.Click += BtnAbout_Click;
         // 
+        // imageTransformationsToolStripMenuItem
+        // 
+        this.ImageTransformMenu.DropDownItems.AddRange(new ToolStripItem[] { this.BtnScaleImageTransform });
+        this.ImageTransformMenu.Name = "imageTransformationsToolStripMenuItem";
+        this.ImageTransformMenu.Size = new Size(195, 22);
+        this.ImageTransformMenu.Text = "Image Transformations";
+        // 
+        // scaleImagesToolStripMenuItem
+        // 
+        this.BtnScaleImageTransform.Name = "scaleImagesToolStripMenuItem";
+        this.BtnScaleImageTransform.Size = new Size(180, 22);
+        this.BtnScaleImageTransform.Text = "Scale images";
+        this.BtnScaleImageTransform.Click += BtnScaleImages_Click;
+        // 
         // FrmMain
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -496,4 +512,6 @@ partial class FrmMain
     private ToolStripButton BtnTsDeleteSelected;
     private ToolStripButton BtnTsClose;
     private ToolStripMenuItem BtnAutomaticBackups;
+    private ToolStripMenuItem ImageTransformMenu;
+    private ToolStripMenuItem BtnScaleImageTransform;
 }

@@ -101,7 +101,8 @@ public class UvgaFile
                 throw new FormatException("Failed to read the correct amount of data from the UVGA");
             }
 
-            res.Images.Add(new UvgaImageContent(parts[0], buffer));
+            var newimg = new UvgaImageContent(parts[0], buffer);
+            res.Images.Add(newimg);
         }
 
         if (res.Images.Count != nImages)
@@ -158,7 +159,7 @@ public class UvgaFile
                 sw.WriteLine(this.Images.Count.ToString());
                 foreach (var i in this.Images)
                 {
-                    var data = i.ImageData.ToArray();
+                    var data = i.PngImageData.ToArray();
                     var name = i.Name;
                     sw.WriteLine($"{name} {fs.Position} {data.Length}");
                     fs.Write(data, 0, data.Length);

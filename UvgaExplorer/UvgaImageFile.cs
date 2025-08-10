@@ -78,7 +78,7 @@ internal class UvgaImageFile
 
     private static (Image Image, Image Thumbnail) CreateImages(UvgaImageContent source)
     {
-        using var ms = new MemoryStream([.. source.ImageData]);
+        using var ms = new MemoryStream([.. source.PngImageData]);
         var original = Image.FromStream(ms);
 
         var thumb = new Bitmap(32, 32);

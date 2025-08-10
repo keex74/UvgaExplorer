@@ -7,12 +7,12 @@
 namespace UvgaExplorer.ImageTransformation.ScalingTransformation;
 
 /// <summary>
-/// Defines a configuration control for the
+/// Defines a configuration control for the <see cref="ImageScalingTransformation"/>.
 /// </summary>
 public partial class ScalingTransformationConfig
     : UserControl
 {
-    private Size originalSize;
+    private readonly Size originalSize;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ScalingTransformationConfig"/> class.
@@ -20,23 +20,15 @@ public partial class ScalingTransformationConfig
     public ScalingTransformationConfig()
     {
         this.InitializeComponent();
+        this.originalSize = new Size(150, 100);
         this.NumScale.ValueChanged += this.NumScale_ValueChanged;
+        this.UpdateUI();
     }
 
     /// <summary>
     /// Gets the selected scale in [%].
     /// </summary>
     public double SelectedScale { get => (double)this.NumScale.Value; }
-
-    /// <summary>
-    /// Initialize the control.
-    /// </summary>
-    /// <param name="image">The image to transform.</param>
-    public void Initialize(Bitmap image)
-    {
-        this.originalSize = image.Size;
-        this.UpdateUI();
-    }
 
     private void NumScale_ValueChanged(object? sender, EventArgs e)
     {
@@ -45,8 +37,9 @@ public partial class ScalingTransformationConfig
 
     private void UpdateUI()
     {
-        var w = (int)(this.originalSize.Width * this.SelectedScale);
-        var h = (int)(this.originalSize.Height * this.SelectedScale);
+        var scale = this.SelectedScale / 100;
+        var w = (int)(this.originalSize.Width * scale);
+        var h = (int)(this.originalSize.Height * scale);
         this.LblResultSize.Text = $"{w} x {h}";
     }
 }

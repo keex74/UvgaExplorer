@@ -183,7 +183,7 @@ internal static class UvgaOperations
                     continue;
                 }
 
-                File.WriteAllBytes(fn, [.. item.Source.ImageData]);
+                File.WriteAllBytes(fn, [.. item.Source.PngImageData]);
             }
         }
         catch (Exception ex)
@@ -249,7 +249,11 @@ internal static class UvgaOperations
     /// <returns>The fixed data.</returns>
     public static byte[] FixImageData(byte[] data)
     {
-        if (!CheckPngPixelFormat(data))
+        var pngFormat = PngImageProperties.Parse(data);
+
+        // Ignore whether the image is overall valid PNG, since other formats can also be read back in.
+        // If that doesn't work, the read function will throw.
+        if (!pngFormat.IsSupported)
         {
             // Recode the file to png
             using var ms = new MemoryStream(data);
@@ -299,65 +303,5 @@ internal static class UvgaOperations
             MessageBox.Show(parent, $"Failed to save the file.{Environment.NewLine}{Environment.NewLine}Error:{Environment.NewLine}{ex}", "Saving failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
-    }
-
-    private static bool CheckPngPixelFormat(byte[] data)
-    {
-        var pngHeader = new byte[] { 137, 80, 78, 71, 13, 10, 26, 10 };
-        if (!pngHeader.SequenceEqual(data.Take(pngHeader.Length)))
-        {
-            return false;
-        }
-
-        using var ms = new MemoryStream(data);
-        using var br = new BinaryReader(ms);
-        var buffer = new byte[1024];
-
-        // Skip signature
-        ms.Read(buffer, 0, pngHeader.Length);
-        var length = BE(br.ReadUInt32());
-        if (ms.Position + length + 8 > ms.Length)
-        {
-            // Invalid length
-            return false;
-        }
-
-        var type = BE(br.ReadUInt32());
-        if (type != (('I' << 24) | ('H' << 16) | ('D' << 8) | 'R'))
-        {
-            // Invalid chunk type.
-            return false;
-        }
-
-        var chunkData = new byte[length];
-        ms.Read(chunkData, 0, chunkData.Length);
-        var crc = BE(br.ReadUInt32());
-
-        using var msChunk = new MemoryStream(chunkData);
-        using var brChunk = new BinaryReader(msChunk);
-        var width = BE(brChunk.ReadInt32());
-        var height = BE(brChunk.ReadInt32());
-        var bitdepth = brChunk.ReadByte();
-        var colorType = brChunk.ReadByte();
-        var compression = brChunk.ReadByte();
-        var filter = brChunk.ReadByte();
-        var interlace = brChunk.ReadByte();
-        return colorType == 2 && bitdepth == 8;
-    }
-
-    private static uint BE(uint v)
-    {
-        var b3 = (v >> 24) & 0xFF;
-        var b2 = (v >> 16) & 0xFF;
-        var b1 = (v >> 8) & 0xFF;
-        var b0 = (v >> 0) & 0xFF;
-        return (b0 << 24) | (b1 << 16) | (b2 << 8) | b3;
-    }
-
-    private static int BE(int v)
-    {
-        var bytes = BitConverter.GetBytes(v);
-        var rev = bytes.Reverse().ToArray();
-        return BitConverter.ToInt32(rev, 0);
     }
 }

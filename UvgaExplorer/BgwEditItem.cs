@@ -31,7 +31,7 @@ internal class BgwEditItem
         {
             var temppath = Path.GetTempPath();
             tempfile = Path.Combine(temppath, Guid.NewGuid().ToString() + ".png");
-            File.WriteAllBytes(tempfile, [.. data.Item.Source.ImageData]);
+            File.WriteAllBytes(tempfile, [.. data.Item.Source.PngImageData]);
             var psi = new ProcessStartInfo(tempfile)
             {
                 UseShellExecute = true,

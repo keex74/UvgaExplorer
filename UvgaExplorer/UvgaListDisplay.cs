@@ -6,6 +6,7 @@
 
 namespace UvgaExplorer;
 
+using System;
 using LibUvgaFile;
 using UvgaExplorer.ClipboardData;
 
@@ -23,6 +24,8 @@ internal partial class UvgaListDisplay
     private readonly List<UvgaImageFile> selectedOnMouseDown = [];
     private UvgaCollection currentimages;
     private bool mouseDownOnItem = false;
+
+    private SelectionStatus? selectionStatus;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UvgaListDisplay"/> class.
@@ -151,6 +154,64 @@ internal partial class UvgaListDisplay
     }
 
     /// <summary>
+    /// Store the current selection and active item.
+    /// </summary>
+    public void StoreSelection()
+    {
+        var active = this.ActiveImage;
+        var activeName = active != null ? active.Source.Name : string.Empty;
+        var selected = this.SelectedImages.Select(s => s.Name).ToHashSet();
+        this.selectionStatus = new SelectionStatus(activeName, selected);
+    }
+
+    /// <summary>
+    /// Restore a previously stored selection and active item.
+    /// </summary>
+    /// <param name="pauseUpdates">Whether to pause and unpause updates to the listview.</param>
+    public void RestoreSelection(bool pauseUpdates)
+    {
+        if (!this.selectionStatus.HasValue)
+        {
+            return;
+        }
+
+        var allItems = this.LvImages.Items.Cast<DisplayWrapper>();
+
+        DisplayWrapper? newActive = null;
+        if (!string.IsNullOrEmpty(this.selectionStatus.Value.Active))
+        {
+            newActive = allItems.FirstOrDefault(d => d.SourceItem.Name == this.selectionStatus.Value.Active);
+        }
+
+        var names = this.selectionStatus.Value.Selected;
+        try
+        {
+            if (pauseUpdates)
+            {
+                this.SetChangeEvent(false);
+                this.LvImages.BeginUpdate();
+            }
+
+            foreach (DisplayWrapper item in this.LvImages.Items)
+            {
+                item.Selected = names.Contains(item.SourceItem.Name);
+            }
+
+            this.LvImages.FocusedItem = newActive;
+        }
+        finally
+        {
+            if (pauseUpdates)
+            {
+                this.LvImages.EndUpdate();
+                this.OnActiveImageChanged(EventArgs.Empty);
+                this.OnSelectedImagesChanged(EventArgs.Empty);
+                this.SetChangeEvent(true);
+            }
+        }
+    }
+
+    /// <summary>
     /// Raises the <see cref="ActiveImageChanged"/> event.
     /// </summary>
     /// <param name="e">The event arguments.</param>
@@ -263,7 +324,7 @@ internal partial class UvgaListDisplay
 
     private void DisplayImages(UvgaCollection images)
     {
-        var scrollPosition = this.LvImages.AutoScrollOffset;
+        this.StoreSelection();
 
         try
         {
@@ -302,11 +363,11 @@ internal partial class UvgaListDisplay
         finally
         {
             this.LvImages.EndUpdate();
-            this.LvImages.AutoScrollOffset = scrollPosition;
             this.LvImages.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             this.OnActiveImageChanged(EventArgs.Empty);
             this.OnSelectedImagesChanged(EventArgs.Empty);
             this.SetChangeEvent(true);
+            this.RestoreSelection(true);
         }
     }
 
@@ -432,7 +493,7 @@ internal partial class UvgaListDisplay
                     // Images in the UVGA don't have extensions.
                     var fn = item.Source.Name + ".png";
                     var outputFile = Path.Combine(folder, fn);
-                    var arr = item.Source.ImageData.ToArray();
+                    var arr = item.Source.PngImageData.ToArray();
                     File.WriteAllBytes(outputFile, arr);
                     createdFiles.Add(outputFile);
                 }
@@ -464,6 +525,12 @@ internal partial class UvgaListDisplay
         this.selectedOnMouseDown.Clear();
         this.mouseDownOnItem = false;
         this.LvImages.AllowDrop = true;
+    }
+
+    private readonly struct SelectionStatus(string active, HashSet<string> selected)
+    {
+        public readonly string Active = active;
+        public readonly HashSet<string> Selected = selected;
     }
 
     private class DisplayWrapper

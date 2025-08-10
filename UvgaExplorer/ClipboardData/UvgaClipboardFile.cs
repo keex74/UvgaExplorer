@@ -32,7 +32,7 @@ public class UvgaClipboardFile
     /// <returns>The clipboard data.</returns>
     internal static UvgaClipboardFile FromImage(UvgaImageFile sourceImage)
     {
-        return new UvgaClipboardFile() { Name = sourceImage.Name, Data = [.. sourceImage.Source.ImageData] };
+        return new UvgaClipboardFile() { Name = sourceImage.Name, Data = [.. sourceImage.Source.PngImageData] };
     }
 
     /// <summary>

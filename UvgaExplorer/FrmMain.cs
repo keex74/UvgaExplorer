@@ -7,6 +7,8 @@
 namespace UvgaExplorer;
 
 using System.Text;
+using UvgaExplorer.ImageTransformation;
+using UvgaExplorer.ImageTransformation.ScalingTransformation;
 
 /// <summary>
 /// Defines the main form of the program.
@@ -49,6 +51,17 @@ internal partial class FrmMain
             var t = this.TcEditors.SelectedTab as CustomEditorTab;
             return t;
         }
+    }
+
+    private void RunTransformer(IImageTransformer transformer)
+    {
+        var t = this.SelectedTab;
+        if (t == null)
+        {
+            return;
+        }
+
+        t.FileExplorer.RunImageTransformation(transformer);
     }
 
     private void TcEditors_SelectedIndexChanged(object? sender, EventArgs e)
@@ -329,6 +342,11 @@ internal partial class FrmMain
         Program.UESettings.MakeSaveBackups = !Program.UESettings.MakeSaveBackups;
         Program.UESettings.Save();
         this.BtnAutomaticBackups.Checked = Program.UESettings.MakeSaveBackups;
+    }
+
+    private void BtnScaleImages_Click(object sender, EventArgs e)
+    {
+        this.RunTransformer(new ImageScalingTransformation());
     }
 
     private class CustomEditorTab

@@ -27,13 +27,12 @@ namespace UvgaExplorer.ImageTransformation
         /// <param name="image">The image.</param>
         /// <param name="configurationControl">The object created prior to the application by the <see cref="GetConfigurationControl"/> function.</param>
         /// <returns>The transformed image, or null if the transformation can't be applied.</returns>
-        public Bitmap? TransformImage(Bitmap image, Control? configurationControl);
+        public Bitmap? TransformImage(Image image, Control? configurationControl);
 
         /// <summary>
         /// Get a configuration control.
         /// </summary>
-        /// <param name="image">The bitmap that should be transformed in the upcoming <see cref="TransformImage(Bitmap, Control?)"/> call.</param>
         /// <returns>The configuration control, or null if no control is available.</returns>
-        public Control? GetConfigurationControl(Bitmap image);
+        public Control? GetConfigurationControl();
     }
 }

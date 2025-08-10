@@ -60,7 +60,7 @@
             // 
             this.label1.Anchor = AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new Point(3, 7);
+            this.label1.Location = new Point(16, 7);
             this.label1.Margin = new Padding(3);
             this.label1.Name = "label1";
             this.label1.Size = new Size(105, 15);
@@ -70,11 +70,11 @@
             // NumScale
             // 
             this.NumScale.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            this.NumScale.Location = new Point(114, 3);
+            this.NumScale.Location = new Point(127, 3);
             this.NumScale.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             this.NumScale.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.NumScale.Name = "NumScale";
-            this.NumScale.Size = new Size(149, 23);
+            this.NumScale.Size = new Size(136, 23);
             this.NumScale.TabIndex = 1;
             this.NumScale.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
@@ -82,17 +82,17 @@
             // 
             this.label2.Anchor = AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new Point(28, 32);
+            this.label2.Location = new Point(3, 32);
             this.label2.Margin = new Padding(3);
             this.label2.Name = "label2";
-            this.label2.Size = new Size(80, 15);
+            this.label2.Size = new Size(118, 15);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Scaling result:";
+            this.label2.Text = "Example for 150x100:";
             // 
             // LblResultSize
             // 
             this.LblResultSize.AutoSize = true;
-            this.LblResultSize.Location = new Point(114, 32);
+            this.LblResultSize.Location = new Point(127, 32);
             this.LblResultSize.Margin = new Padding(3);
             this.LblResultSize.Name = "LblResultSize";
             this.LblResultSize.Size = new Size(25, 15);
