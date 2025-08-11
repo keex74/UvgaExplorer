@@ -10,7 +10,6 @@ namespace LibUvgaFile
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using static System.Net.Mime.MediaTypeNames;
 
     /// <summary>
     /// Implements a class that can decode properties about PNG images.

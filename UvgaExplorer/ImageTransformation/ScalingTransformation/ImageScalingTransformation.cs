@@ -39,6 +39,7 @@ internal class ImageScalingTransformation
         var res = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
         res.SetResolution(image.HorizontalResolution, image.VerticalResolution);
         using var g = Graphics.FromImage(res);
+        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
         g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
         g.DrawImage(image, new Rectangle(0, 0, w, h));
         return res;
