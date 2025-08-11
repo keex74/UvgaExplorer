@@ -304,21 +304,25 @@ internal partial class UvgaFileExplorer
             return;
         }
 
+        UvgaImageFile? newActive = null;
         if (e.FileNames.Count > 0)
         {
-            UvgaOperations.ImportImages(this, this.currentFile, e.FileNames);
+            var newImages = UvgaOperations.ImportImages(this, this.currentFile, e.FileNames);
+            newActive = newImages.FirstOrDefault();
         }
         else if (e.Images.Count > 0)
         {
             foreach (var item in e.Images)
             {
                 var newitem = new UvgaImageFile(item);
+                newActive ??= newitem;
                 UvgaOperations.ReplaceImage(this.currentFile, newitem);
             }
         }
 
         this.currentFile.SortList();
         this.ShowUvgaFile(this.currentFile);
+        this.uvgaListDisplay1.ActiveImage = newActive;
     }
 
     private void UvgaListDisplay1_DeleteImagesRequested(object? sender, EventArgs e)

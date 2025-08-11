@@ -198,6 +198,10 @@ internal partial class UvgaListDisplay
             }
 
             this.LvImages.FocusedItem = newActive;
+            if (newActive != null)
+            {
+                this.LvImages.EnsureVisible(newActive.Index);
+            }
         }
         finally
         {

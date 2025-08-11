@@ -88,9 +88,11 @@ internal static class UvgaOperations
     /// <param name="parent">The parent window.</param>
     /// <param name="uvgaFile">The uvga files.</param>
     /// <param name="imageFiles">The image file names to import.</param>
-    public static void ImportImages(IWin32Window parent, UvgaCollection uvgaFile, IEnumerable<string> imageFiles)
+    /// <returns>The newly imported images. They don't need to be added to the <paramref name="uvgaFile"/> manually, it is done in the function.</returns>
+    public static IReadOnlyCollection<UvgaImageFile> ImportImages(IWin32Window parent, UvgaCollection uvgaFile, IEnumerable<string> imageFiles)
     {
         var allok = true;
+        var res = new List<UvgaImageFile>();
         foreach (var file in imageFiles)
         {
             try
@@ -104,6 +106,7 @@ internal static class UvgaOperations
                 var rawimgfile = new UvgaImageContent(fn, data);
                 var imgFile = new UvgaImageFile(rawimgfile);
                 ReplaceImage(uvgaFile, imgFile);
+                res.Add(imgFile);
             }
             catch (Exception)
             {
@@ -116,6 +119,8 @@ internal static class UvgaOperations
         {
             MessageBox.Show(parent, "Failed to import some of the images for whatever reason. Please check that only image files were selected.", "Could not import all images", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        return res;
     }
 
     /// <summary>
