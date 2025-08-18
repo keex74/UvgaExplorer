@@ -9,6 +9,7 @@ namespace UvgaExplorer;
 using System.Drawing.Imaging;
 using System.Text;
 using LibUvgaFile;
+using Microsoft.Win32;
 
 /// <summary>
 /// Defines functions to change Uvga files.
@@ -24,6 +25,19 @@ internal static class UvgaOperations
     {
         using var dlg = new OpenFileDialog();
         dlg.Filter = "UVGA/I Files|*.uvgi;*.uvga";
+        var aoPaths = FindAOPaths();
+        var paths = new HashSet<string>();
+        foreach (var aoPath in aoPaths)
+        {
+            var prefsPath = AOPrefsFolderHasher.GetPrefsFolder(aoPath);
+            paths.Add(prefsPath.FullName);
+        }
+
+        foreach (var p in paths)
+        {
+            dlg.CustomPlaces.Add(p);
+        }
+
         if (dlg.ShowDialog(parent) == DialogResult.OK)
         {
             try
@@ -308,5 +322,40 @@ internal static class UvgaOperations
             MessageBox.Show(parent, $"Failed to save the file.{Environment.NewLine}{Environment.NewLine}Error:{Environment.NewLine}{ex}", "Saving failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
+    }
+
+    private static IReadOnlyList<string> FindAOPaths()
+    {
+        using var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Compatibility Assistant\Store");
+        if (key == null)
+        {
+            return [];
+        }
+
+        var values = key.GetValueNames();
+        var res = new HashSet<string>();
+        foreach (var value in values)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                continue;
+            }
+
+            var fn = Path.GetFileName(value);
+            if (fn != "AnarchyOnline.exe" || !File.Exists(value))
+            {
+                continue;
+            }
+
+            var path = Path.GetDirectoryName(value);
+            if (string.IsNullOrEmpty(path))
+            {
+                continue;
+            }
+
+            res.Add(Path.GetFullPath(path));
+        }
+
+        return [.. res];
     }
 }
