@@ -13,6 +13,18 @@ Features include:
 - Open images in external editor by double-click with automatic re-import
 - Automatic backup creation
 
+**Please note**
+The default GUI is found in: `<AO Path>\cd_image\gui\Default`
+Do not edit the UVGA/I files in there directly.
+Instead do the following
+
+- Copy the Default folder to: `%localappdata%\Funcom\Anarchy Onnline\<hash>\<AO folder name>\Gui`
+- Rename the copied folder to something else, e.g. `MyGui`, so you end up with `%localappdata%\Funcom\Anarchy Onnline\<hash>\<AO folder name>\Gui\MyGui`
+- In the Anarchy Online launcher, select `Settings -> GUI` and enter the folder name (e.g. `MyGui`) as the Skin name
+- Then edit the UVGA/I files in the newly created folder instead.
+- 
+![GUI selection](guiselect.png)
+
 Requirements:
 Install the .NET 8 Desktop Runtime.
 
