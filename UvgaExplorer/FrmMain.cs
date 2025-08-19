@@ -7,6 +7,7 @@
 namespace UvgaExplorer;
 
 using System.Text;
+using System.Windows.Forms;
 using UvgaExplorer.ImageTransformation;
 using UvgaExplorer.ImageTransformation.ScalingTransformation;
 
@@ -198,7 +199,19 @@ internal partial class FrmMain
 
     private void BtnOpen_Click(object sender, EventArgs e)
     {
-        var newFile = UvgaOperations.OpenFile(this);
+        var openFiles = new List<string>();
+        foreach (CustomEditorTab t in this.TcEditors.TabPages)
+        {
+            var f = t.FileExplorer.CurrentFile;
+            if (f == null || string.IsNullOrEmpty(f.SourcePath))
+            {
+                continue;
+            }
+
+            openFiles.Add(f.SourcePath);
+        }
+
+        var newFile = UvgaOperations.OpenFile(this, openFiles);
         if (newFile != null)
         {
             this.NewEditor(newFile);

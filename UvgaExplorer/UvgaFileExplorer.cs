@@ -49,6 +49,11 @@ internal partial class UvgaFileExplorer
     public bool IsIdle { get => this.currentFile == null || (string.IsNullOrEmpty(this.currentFile.SourcePath) && this.currentFile.Count == 0); }
 
     /// <summary>
+    /// Gets the currently open file.
+    /// </summary>
+    public UvgaCollection? CurrentFile => this.currentFile;
+
+    /// <summary>
     /// Set the file that is displayed on the control.
     /// </summary>
     /// <param name="newFile">The file.</param>

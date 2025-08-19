@@ -32,7 +32,7 @@ public class UvgaFile
     public string SourceUvgiPath { get; set; }
 
     /// <summary>
-    /// Gets or sets the path to the uvgi file that the object was loaded from.
+    /// Gets or sets the path to the uvga file that the object was loaded from.
     /// </summary>
     public string SourceUvgaPath { get; set; }
 
