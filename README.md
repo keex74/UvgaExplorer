@@ -26,7 +26,7 @@ Instead do the following:
 - Close settings with OK.
 - Then edit the UVGA/I files in the newly created folder instead.
 
-![GUI selection](guiselect.png)
+![GUI selection](guiselect.png?v2)
 
 Requirements:
 Install the .NET 8 Desktop Runtime.
