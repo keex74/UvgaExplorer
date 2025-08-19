@@ -362,6 +362,12 @@ internal partial class FrmMain
         this.RunTransformer(new ImageScalingTransformation());
     }
 
+    private void DefineOpenWithProgramToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        using var dlg = new EditProgramSelection();
+        dlg.ShowDialog(this);
+    }
+
     private class CustomEditorTab
         : TabPage
     {

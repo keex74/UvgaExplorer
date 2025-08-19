@@ -22,6 +22,17 @@ internal class ProgramSettings
     public int ListViewStyle { get; set; } = (int)View.Details;
 
     /// <summary>
+    /// Gets or sets the program to run when a file is to be edited.
+    /// </summary>
+    public string OpenWithFilename { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the arguments to use when opening an image.
+    /// </summary>
+    /// <remarks>%1 in the arguments is replaced with the full path of the image to be edited.</remarks>
+    public string OpenWithArguments { get; set; } = "\"%1\"";
+
+    /// <summary>
     /// Save the settings.
     /// </summary>
     public void Save()
@@ -36,6 +47,13 @@ internal class ProgramSettings
     /// </summary>
     public void Restore()
     {
+        if (!Properties.Settings.Default.IsUpgraded)
+        {
+            Properties.Settings.Default.Upgrade();
+            Properties.Settings.Default.IsUpgraded = true;
+            Properties.Settings.Default.Save();
+        }
+
         var json = Properties.Settings.Default.ProgramSettings;
         if (!string.IsNullOrEmpty(json))
         {
@@ -46,6 +64,8 @@ internal class ProgramSettings
                 {
                     this.MakeSaveBackups = settings.MakeSaveBackups;
                     this.ListViewStyle = settings.ListViewStyle;
+                    this.OpenWithArguments = settings.OpenWithArguments;
+                    this.OpenWithFilename = settings.OpenWithFilename;
                 }
             }
             catch (Exception)

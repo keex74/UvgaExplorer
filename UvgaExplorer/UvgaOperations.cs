@@ -16,25 +16,11 @@ using Microsoft.Win32;
 /// </summary>
 internal static class UvgaOperations
 {
-    private static (bool Ok, string Uvga, string Uvgi) GetFilenames(string path)
-    {
-        var fn = Path.GetFullPath(path);
-        var dir = Path.GetDirectoryName(fn);
-        if (dir == null)
-        {
-            return (false, string.Empty, string.Empty);
-        }
-
-        var woExt = Path.GetFileNameWithoutExtension(fn);
-        var selUvga = Path.Combine(dir, woExt + ".uvga");
-        var selUvgi = Path.Combine(dir, woExt + ".uvgi");
-        return (true, selUvga, selUvgi);
-    }
-
     /// <summary>
     /// Open a file.
     /// </summary>
     /// <param name="parent">The parent window.</param>
+    /// <param name="openFiles">The currently open files.</param>
     /// <returns>The opened file, or null if cancelled/failed.</returns>
     public static UvgaCollection? OpenFile(IWin32Window parent, IReadOnlyList<string> openFiles)
     {
@@ -55,22 +41,22 @@ internal static class UvgaOperations
 
         if (dlg.ShowDialog(parent) == DialogResult.OK)
         {
-            var names = GetFilenames(dlg.FileName);
-            if (!names.Ok)
+            var (selOk, selUvga, selUvgi) = GetFilenames(dlg.FileName);
+            if (!selOk)
             {
                 return null;
             }
 
             foreach (var o in openFiles)
             {
-                var openFilenames = GetFilenames(o);
-                if (!openFilenames.Ok)
+                var (openOk, openUvga, openUvgi) = GetFilenames(o);
+                if (!openOk)
                 {
                     continue;
                 }
 
-                var aEqual = Path.GetFullPath(names.Uvga).Equals(Path.GetFullPath(openFilenames.Uvga), StringComparison.InvariantCultureIgnoreCase);
-                var iEqual = Path.GetFullPath(names.Uvgi).Equals(Path.GetFullPath(openFilenames.Uvgi), StringComparison.InvariantCultureIgnoreCase);
+                var aEqual = Path.GetFullPath(selUvga).Equals(Path.GetFullPath(openUvga), StringComparison.InvariantCultureIgnoreCase);
+                var iEqual = Path.GetFullPath(selUvgi).Equals(Path.GetFullPath(openUvgi), StringComparison.InvariantCultureIgnoreCase);
                 if (aEqual && iEqual)
                 {
                     MessageBox.Show(parent, $"The selected file is already open.", "Loading aborted", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -395,5 +381,20 @@ internal static class UvgaOperations
         }
 
         return [.. res];
+    }
+
+    private static (bool Ok, string Uvga, string Uvgi) GetFilenames(string path)
+    {
+        var fn = Path.GetFullPath(path);
+        var dir = Path.GetDirectoryName(fn);
+        if (dir == null)
+        {
+            return (false, string.Empty, string.Empty);
+        }
+
+        var woExt = Path.GetFileNameWithoutExtension(fn);
+        var selUvga = Path.Combine(dir, woExt + ".uvga");
+        var selUvgi = Path.Combine(dir, woExt + ".uvgi");
+        return (true, selUvga, selUvgi);
     }
 }

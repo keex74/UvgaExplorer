@@ -32,13 +32,26 @@ internal class BgwEditItem
             var temppath = Path.GetTempPath();
             tempfile = Path.Combine(temppath, Guid.NewGuid().ToString() + ".png");
             File.WriteAllBytes(tempfile, [.. data.Item.Source.PngImageData]);
-            var psi = new ProcessStartInfo(tempfile)
+            ProcessStartInfo psi;
+            if (!File.Exists(Program.UESettings.OpenWithFilename))
             {
-                UseShellExecute = true,
-                Verb = "edit",
-            };
+                psi = new ProcessStartInfo(tempfile)
+                {
+                    UseShellExecute = true,
+                    Verb = "edit",
+                };
+            }
+            else
+            {
+                psi = new ProcessStartInfo(Program.UESettings.OpenWithFilename)
+                {
+                    UseShellExecute = false,
+                };
 
-            psi.ArgumentList.Add(tempfile);
+                var args = Program.UESettings.OpenWithArguments.Replace("%1", tempfile);
+                psi.Arguments = args;
+            }
+
             var proc = Process.Start(psi);
             if (proc == null)
             {

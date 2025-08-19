@@ -55,6 +55,9 @@ partial class FrmMain
         this.BtnListStyle = new ToolStripMenuItem();
         this.optionsToolStripMenuItem = new ToolStripMenuItem();
         this.BtnAutomaticBackups = new ToolStripMenuItem();
+        this.BtnDefineOpenWithProgram = new ToolStripMenuItem();
+        this.ImageTransformMenu = new ToolStripMenuItem();
+        this.BtnScaleImageTransform = new ToolStripMenuItem();
         this.helpToolStripMenuItem = new ToolStripMenuItem();
         this.BtnHelp = new ToolStripMenuItem();
         this.toolStripSeparator8 = new ToolStripSeparator();
@@ -72,8 +75,6 @@ partial class FrmMain
         this.BtnTsPaste = new ToolStripButton();
         this.toolStripSeparator5 = new ToolStripSeparator();
         this.BtnTsAbout = new ToolStripButton();
-        this.ImageTransformMenu = new ToolStripMenuItem();
-        this.BtnScaleImageTransform = new ToolStripMenuItem();
         this.menuStrip1.SuspendLayout();
         this.toolStripContainer1.ContentPanel.SuspendLayout();
         this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -203,7 +204,7 @@ partial class FrmMain
         // 
         this.BtnDeleteSelected.Image = Properties.Resources.Delete16;
         this.BtnDeleteSelected.Name = "BtnDeleteSelected";
-        this.BtnDeleteSelected.Size = new Size(180, 22);
+        this.BtnDeleteSelected.Size = new Size(158, 22);
         this.BtnDeleteSelected.Text = "Remove images";
         this.BtnDeleteSelected.Click += BtnDeleteSelected_Click;
         // 
@@ -213,7 +214,7 @@ partial class FrmMain
         this.BtnCut.ImageTransparentColor = Color.Magenta;
         this.BtnCut.Name = "BtnCut";
         this.BtnCut.ShortcutKeys = Keys.Control | Keys.X;
-        this.BtnCut.Size = new Size(180, 22);
+        this.BtnCut.Size = new Size(158, 22);
         this.BtnCut.Text = "Cu&t";
         this.BtnCut.Click += BtnCut_Click;
         // 
@@ -223,7 +224,7 @@ partial class FrmMain
         this.BtnCopy.ImageTransparentColor = Color.Magenta;
         this.BtnCopy.Name = "BtnCopy";
         this.BtnCopy.ShortcutKeys = Keys.Control | Keys.C;
-        this.BtnCopy.Size = new Size(180, 22);
+        this.BtnCopy.Size = new Size(158, 22);
         this.BtnCopy.Text = "&Copy";
         this.BtnCopy.Click += BtnCopy_Click;
         // 
@@ -233,19 +234,19 @@ partial class FrmMain
         this.BtnPaste.ImageTransparentColor = Color.Magenta;
         this.BtnPaste.Name = "BtnPaste";
         this.BtnPaste.ShortcutKeys = Keys.Control | Keys.V;
-        this.BtnPaste.Size = new Size(180, 22);
+        this.BtnPaste.Size = new Size(158, 22);
         this.BtnPaste.Text = "&Paste";
         this.BtnPaste.Click += BtnPaste_Click;
         // 
         // toolStripSeparator7
         // 
         this.toolStripSeparator7.Name = "toolStripSeparator7";
-        this.toolStripSeparator7.Size = new Size(177, 6);
+        this.toolStripSeparator7.Size = new Size(155, 6);
         // 
         // BtnSelectAll
         // 
         this.BtnSelectAll.Name = "BtnSelectAll";
-        this.BtnSelectAll.Size = new Size(180, 22);
+        this.BtnSelectAll.Size = new Size(158, 22);
         this.BtnSelectAll.Text = "Select &All";
         this.BtnSelectAll.Click += BtnSelectAll_Click;
         // 
@@ -264,7 +265,7 @@ partial class FrmMain
         // 
         // optionsToolStripMenuItem
         // 
-        this.optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.BtnAutomaticBackups });
+        this.optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { this.BtnAutomaticBackups, this.BtnDefineOpenWithProgram });
         this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
         this.optionsToolStripMenuItem.Size = new Size(195, 22);
         this.optionsToolStripMenuItem.Text = "&Options";
@@ -272,9 +273,30 @@ partial class FrmMain
         // BtnAutomaticBackups
         // 
         this.BtnAutomaticBackups.Name = "BtnAutomaticBackups";
-        this.BtnAutomaticBackups.Size = new Size(212, 22);
+        this.BtnAutomaticBackups.Size = new Size(227, 22);
         this.BtnAutomaticBackups.Text = "Create automatic backups";
         this.BtnAutomaticBackups.Click += BtnAutomaticBackups_Click;
+        // 
+        // BtnDefineOpenWithProgram
+        // 
+        this.BtnDefineOpenWithProgram.Name = "BtnDefineOpenWithProgram";
+        this.BtnDefineOpenWithProgram.Size = new Size(227, 22);
+        this.BtnDefineOpenWithProgram.Text = "Define \"Open With\" Program";
+        this.BtnDefineOpenWithProgram.Click += DefineOpenWithProgramToolStripMenuItem_Click;
+        // 
+        // ImageTransformMenu
+        // 
+        this.ImageTransformMenu.DropDownItems.AddRange(new ToolStripItem[] { this.BtnScaleImageTransform });
+        this.ImageTransformMenu.Name = "ImageTransformMenu";
+        this.ImageTransformMenu.Size = new Size(195, 22);
+        this.ImageTransformMenu.Text = "Image Transformations";
+        // 
+        // BtnScaleImageTransform
+        // 
+        this.BtnScaleImageTransform.Name = "BtnScaleImageTransform";
+        this.BtnScaleImageTransform.Size = new Size(142, 22);
+        this.BtnScaleImageTransform.Text = "Scale images";
+        this.BtnScaleImageTransform.Click += BtnScaleImages_Click;
         // 
         // helpToolStripMenuItem
         // 
@@ -429,20 +451,6 @@ partial class FrmMain
         this.BtnTsAbout.Text = "He&lp";
         this.BtnTsAbout.Click += BtnAbout_Click;
         // 
-        // imageTransformationsToolStripMenuItem
-        // 
-        this.ImageTransformMenu.DropDownItems.AddRange(new ToolStripItem[] { this.BtnScaleImageTransform });
-        this.ImageTransformMenu.Name = "imageTransformationsToolStripMenuItem";
-        this.ImageTransformMenu.Size = new Size(195, 22);
-        this.ImageTransformMenu.Text = "Image Transformations";
-        // 
-        // scaleImagesToolStripMenuItem
-        // 
-        this.BtnScaleImageTransform.Name = "scaleImagesToolStripMenuItem";
-        this.BtnScaleImageTransform.Size = new Size(180, 22);
-        this.BtnScaleImageTransform.Text = "Scale images";
-        this.BtnScaleImageTransform.Click += BtnScaleImages_Click;
-        // 
         // FrmMain
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -514,4 +522,5 @@ partial class FrmMain
     private ToolStripMenuItem BtnAutomaticBackups;
     private ToolStripMenuItem ImageTransformMenu;
     private ToolStripMenuItem BtnScaleImageTransform;
+    private ToolStripMenuItem BtnDefineOpenWithProgram;
 }
